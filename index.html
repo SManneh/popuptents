@@ -9,9 +9,100 @@
     <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 <body>
-    <div class="container">
-        <div class="row">
-            <img src="./assets/media/Logo.png" max-width="100%" max-height="100%">
+    <div class="container-fluid">
+        <div class="row d-flex flex-wrap">
+            <!--Header-->
+            <div class="header">
+                <img class="col-sm-12" src="./assets/media/Logo.png" max-width="100%" max-height="100%">
+                <div class="accordion col-sm-12" id="search">
+                    <div class="card">
+                        <div class="card-header" id="headingOne">
+                            <h5 class="mb-0">
+                              <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                Collapsible Group Item #1
+                              </button>
+                            </h5>
+                        </div>
+                    </div>
+                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#search">
+                        <div class="card-body">
+                            <form>
+                                <input type="text" id="locationinput" class="form-control" value="Current Location">
+                                <div class="form-row">
+                                    <div class=
+                                <input class="form-check-input" type="checkbox" id="campgrounds" >
+                                <label class="form-check-label" for="campgrounds">Campgrounds</label>
+                                <input class="form-check-input" type="checkbox" id="trails">
+                                <label class="form-check-label" for="trails">Hiking Trails</label>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Div to display the map -->
+            <div class="col-sm-12" id="map">
+                <!--Button to return to default location-->
+                <script>
+                        // This example displays a marker at the center of Australia.
+                        // When the user clicks the marker, an info window opens.
+                
+                        function initMap() {
+                        var uluru = {lat: -25.363, lng: 131.044};
+                        var map = new google.maps.Map(document.getElementById('map'), {
+                            zoom: 4,
+                            center: uluru
+                        });
+                
+                        var contentString = '<div id="content">'+
+                            '<div id="siteNotice">'+
+                            '</div>'+
+                            '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
+                            '<div id="bodyContent">'+
+                            '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
+                            'sandstone rock formation in the southern part of the '+
+                            'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) '+
+                            'south west of the nearest large town, Alice Springs; 450&#160;km '+
+                            '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major '+
+                            'features of the Uluru - Kata Tjuta National Park. Uluru is '+
+                            'sacred to the Pitjantjatjara and Yankunytjatjara, the '+
+                            'Aboriginal people of the area. It has many springs, waterholes, '+
+                            'rock caves and ancient paintings. Uluru is listed as a World '+
+                            'Heritage Site.</p>'+
+                            '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
+                            'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
+                            '(last visited June 22, 2009).</p>'+
+                            '</div>'+
+                            '</div>';
+                
+                        var infowindow = new google.maps.InfoWindow({
+                            content: contentString
+                        });
+                
+                        var marker = new google.maps.Marker({
+                            position: uluru,
+                            map: map,
+                            title: 'Uluru (Ayers Rock)'
+                        });
+                        marker.addListener('click', function() {
+                            infowindow.open(map, marker);
+                        });
+                        }
+                        </script>
+                    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCyHsn9dQoGsrijNRNtLiPTaILSC3Xkj3g&callback=initMap"
+                            type="text/javascript"></script>
+                <div id="returnloc">
+
+                </div>
+            </div>
+            <!--Div to display the quick popup detailing -->
+            <div id="quicklook">
+
+            </div>
+            <!--Div to display the more indepth details-->
+            <div id="moredetails">
+
+            </div>
         </div>
 
     </div>

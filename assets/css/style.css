@@ -1,0 +1,31 @@
+.header{
+    background-color: #0C8E56;
+}
+
+.card-header{
+    background-color:#0C8E56;
+    border:none;
+    padding-top:0;
+    padding-bottom:0;
+}
+
+.accordian{
+    background-color:#0C8E56;
+}
+
+.btn{
+    color:#FFFAED;
+    text-decoration:none;
+    text-align:center;
+    font-size:1.25em;
+}
+
+.card{
+    background-color:#0C8E56;
+    width:100%;
+}
+
+#map{
+    height:80vh;
+    width:100vw;
+}

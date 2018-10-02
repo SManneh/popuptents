@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
 </head>
@@ -12,28 +13,38 @@
     <div class="container-fluid">
         <div class="row d-flex flex-wrap">
             <!--Header-->
-            <div class="header">
-                <img class="col-sm-12" src="./assets/media/Logo.png" max-width="100%" max-height="100%">
+            <div class="header fixed-top">
+                <img class="col-sm-12" src="./assets/media/Logo.png" id="logo" max-width="100%" max-height="100%">
+                <div class="fixed-top d-flex justify-content-around" id="buttons">
+                    <button type="reset" class="btn btn-primary" id="cancel">Cancel</button>
+                    <button type="button" class="btn btn-primary">Filter</button>
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
                 <div class="accordion col-sm-12" id="search">
                     <div class="card">
                         <div class="card-header" id="headingOne">
                             <h5 class="mb-0">
-                              <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                Collapsible Group Item #1
-                              </button>
+                              <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"><i class="fas fa-search-location"></i></div>
+                                    </div>
+                                    <input type="text" id="locationinput" class="form-control" value="Current Location" data-target="#collapseOne" aria-controls="collapseOne">
+                                </div>
                             </h5>
                         </div>
                     </div>
                     <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#search">
                         <div class="card-body">
-                            <form>
-                                <input type="text" id="locationinput" class="form-control" value="Current Location">
+                            <form id="checkboxes">
                                 <div class="form-row">
-                                    <div class=
-                                <input class="form-check-input" type="checkbox" id="campgrounds" >
-                                <label class="form-check-label" for="campgrounds">Campgrounds</label>
-                                <input class="form-check-input" type="checkbox" id="trails">
-                                <label class="form-check-label" for="trails">Hiking Trails</label>
+                                    <div class="col">
+                                        <input class="form-check-input" type="checkbox" id="campgrounds" checked>
+                                        <label class="form-check-label" for="campgrounds">Campgrounds</label>
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-check-input" type="checkbox" id="trails" checked>
+                                        <label class="form-check-label" for="trails">Hiking Trails</label>
+                                    </div>   
                                 </div>
                             </form>
                         </div>
@@ -41,7 +52,7 @@
                 </div>
             </div>
             <!--Div to display the map -->
-            <div class="col-sm-12" id="map">
+            <div class="col-sm-12 position-relative" id="map">
                 <!--Button to return to default location-->
                 <script>
                         // This example displays a marker at the center of Australia.
@@ -91,10 +102,11 @@
                         </script>
                     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCyHsn9dQoGsrijNRNtLiPTaILSC3Xkj3g&callback=initMap"
                             type="text/javascript"></script>
-                <div id="returnloc">
-
-                </div>
+               
             </div>
+            <div class="position-absolute" id="returnloc">
+                    <button class="btn-secondary"><i class="fas fa-location-arrow"></i></button>
+                </div>
             <!--Div to display the quick popup detailing -->
             <div id="quicklook">
 
@@ -104,7 +116,9 @@
 
             </div>
         </div>
-
+        <div class="footer fixed-bottom">
+            <p class="copyright">2018 <i class="fas fa-copyright"></i> happycampr, inc.</p>
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>

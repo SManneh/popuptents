@@ -1,12 +1,19 @@
+/**************************************Header Styling **************************************/
 .header{
     background-color: #0C8E56;
+    z-index:1000;
 }
-
+/**********Collapse Styling ************/
 .card-header{
     background-color:#0C8E56;
     border:none;
     padding-top:0;
-    padding-bottom:0;
+    padding-bottom:3%;
+}
+.card-body{
+    padding-top: 0;
+    padding-bottom: 4%;
+    margin-top: -2%;
 }
 
 .accordian{
@@ -25,7 +32,73 @@
     width:100%;
 }
 
+.col{
+    text-align:center;
+    margin-left:.5em;
+}
+/**************************** Cancel Search Filter button stylings *****************************/
+#buttons{
+    width:100vw;
+    opacity: 0;
+}
+
+.btn-primary{
+    margin-top: 5%;
+    margin-bottom: 5%;
+    background-color: rgb(243, 51, 92);
+    color: #FFFAED;
+    border-color:#EE4266;
+}
+
+.btn-primary:hover {
+    background-color: #63237B;
+    border-color: #63237B;
+}
+
+.btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
+    background-color: #63237B;
+    border-color: #63237B;
+}
+
+
+/**************************** End of Header Styling *******************************************/
+
+/************************************************ Start of map stylings **************************************************************/
 #map{
     height:80vh;
     width:100vw;
+    margin-top:15.75vh;
 }
+
+#returnloc{
+    bottom: 7%;
+    left: 5%;
+    z-index: 5;
+}
+
+.btn-secondary{
+    background-color:#EE4266;
+    border:none;
+    box-shadow:none;
+}
+
+.fa-location-arrow{
+    background-color: #EE4266;
+}
+/************************************************* End of map styling ***************************************************************/
+
+/************************************************ Start of footer Styling ************************************************************/
+
+.footer{
+    background-color:#0C8E56;
+    color: #FFFAED;
+    text-align:center;
+}
+
+.copyright{
+    padding-top: 1%;
+    padding-bottom: 2%;
+    margin-bottom: 0%;
+}
+
+/************************************************ End of Footer Styling **************************************************************/

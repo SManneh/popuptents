@@ -36,6 +36,10 @@
     text-align:center;
     margin-left:.5em;
 }
+
+.iconshow{
+    color:#FFFAED;
+}
 /**************************** Cancel Search Filter button stylings *****************************/
 #buttons{
     width:100vw;
@@ -45,19 +49,19 @@
 .btn-primary{
     margin-top: 5%;
     margin-bottom: 5%;
-    background-color: rgb(243, 51, 92);
+    background-color: #0C8E56;
     color: #FFFAED;
-    border-color:#EE4266;
+    border-color:#0C8E56;
 }
 
 .btn-primary:hover {
-    background-color: #63237B;
-    border-color: #63237B;
+    background-color: #EE4266;
+    border-color: #EE4266;
 }
 
 .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
-    background-color: #63237B;
-    border-color: #63237B;
+    background-color: #EE4266;
+    border-color: #EE4266;
 }
 
 
@@ -82,9 +86,32 @@
     box-shadow:none;
 }
 
+.btn-secondary:hover {
+    background-color: #270632;
+    border-color: #270632;
+}
+
+.btn-secondary:not(:disabled):not(.disabled):active, .show>.btn-secondary.dropdown-toggle {
+    background-color: #270632;
+    border-color: #270632;
+}
+
 .fa-location-arrow{
     background-color: #EE4266;
+    border-color:#270632;
 }
+
+.fa-location-arrow:hover{
+    background-color: #270632;
+    border-color: #270632;
+}
+
+.fa-location-arrow:not(:disabled):not(.disabled):active, .show>.btn-secondary.dropdown-toggle{
+    background-color: #270632;
+    border-color: #270632;
+}
+
+
 /************************************************* End of map styling ***************************************************************/
 
 /************************************************ Start of footer Styling ************************************************************/

@@ -10,6 +10,46 @@
     <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 <body>
+    <!-- Filter Modal -->
+    <div class="modal fade" id="filter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Filter Search Options</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h5>Campground Amenities</h5>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="showers">
+                    <label class="form-check-label" for="defaultCheck1">Showers</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="toilets">
+                    <label class="form-check-label" for="defaultCheck1">Toilets</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="internet">
+                    <label class="form-check-label" for="defaultCheck1">Internet</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="laundry">
+                    <label class="form-check-label" for="defaultCheck1">Laundry</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="cellPhone">
+                    <label class="form-check-label" for="defaultCheck1">Cell Phone</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" id="save-changes">Save changes</button>
+            </div>
+            </div>
+        </div>
+    </div>
     <div class="container-fluid">
         <div class="row d-flex flex-wrap">
             <!--Header-->
@@ -17,7 +57,7 @@
                 <img class="col-sm-12" src="./assets/media/Logo.png" id="logo" max-width="100%" max-height="100%">
                 <div class="fixed-top d-flex justify-content-around" id="buttons">
                     <button type="reset" class="btn btn-primary" id="cancel">Cancel</button>
-                    <button type="button" class="btn btn-primary">Filter</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#filter">Filter</button>
                     <button type="submit" class="btn btn-primary">Search</button>
                 </div>
                 <div class="accordion col-sm-12" id="search">
@@ -37,19 +77,13 @@
                         <div class="card-body">
                             <form id="checkboxes">
                                 <div class="form-row">
-
-                                <input class="form-check-input" type="checkbox" id="campgrounds" >
-                                <label class="form-check-label" for="campgrounds">Campgrounds</label>
-                                <input class="form-check-input" type="checkbox" id="trails">
-                                <label class="form-check-label" for="trails">Hiking Trails</label>
-
                                     <div class="col">
                                         <input class="form-check-input" type="checkbox" id="campgrounds" checked>
-                                        <label class="form-check-label" for="campgrounds">Campgrounds</label>
+                                        <label class="form-check-label iconshow" for="campgrounds">Campgrounds</label>
                                     </div>
                                     <div class="col">
                                         <input class="form-check-input" type="checkbox" id="trails" checked>
-                                        <label class="form-check-label" for="trails">Hiking Trails</label>
+                                        <label class="form-check-label iconshow" for="trails">Hiking Trails</label>
                                     </div>   
 
                                 </div>
@@ -59,20 +93,24 @@
                 </div>
             </div>
             <!--Div to display the map -->
+
+            
+            <div class="col-sm-12 position-relative" id="map">
+                
+
             <div class="col-sm-12" id="map">                   
             </div>
             <div id="returnloc">
 
-            <div class="col-sm-12 position-relative" id="map">
-                <!--Button to return to default location-->
+            <div class="col-sm-12 position-fixed" id="map">
 
-                    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCyHsn9dQoGsrijNRNtLiPTaILSC3Xkj3g&callback=initMap"
-                            type="text/javascript"></script>
-               
+                <!--Button to return to default location-->
             </div>
             <div class="position-absolute" id="returnloc">
                     <button class="btn-secondary"><i class="fas fa-location-arrow"></i></button>
+                    <button class="btn btn-secondary" id="populate">Populate Locations</button>
                 </div>
+               
             <!--Div to display the quick popup detailing -->
             <div id="quicklook">
 

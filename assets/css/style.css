@@ -1,12 +1,19 @@
+
 .header{
     background-color: #0C8E56;
+    z-index:1000;
 }
 
 .card-header{
     background-color:#0C8E56;
     border:none;
     padding-top:0;
-    padding-bottom:0;
+    padding-bottom:3%;
+}
+.card-body{
+    padding-top: 0;
+    padding-bottom: 4%;
+    margin-top: -2%;
 }
 
 .accordian{
@@ -25,7 +32,93 @@
     width:100%;
 }
 
+.col{
+    text-align:center;
+    margin-left:.5em;
+}
+
+.iconshow{
+    color:#FFFAED;
+}
+#buttons{
+    width:100vw;
+    opacity: 0;
+}
+
+.btn-primary{
+    margin-top: 5%;
+    margin-bottom: 5%;
+    background-color: #0C8E56;
+    color: #FFFAED;
+    border-color:#0C8E56;
+}
+
+.btn-primary:hover {
+    background-color: #EE4266;
+    border-color: #EE4266;
+}
+
+.btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
+    background-color: #EE4266;
+    border-color: #EE4266;
+}
+
+
+
 #map{
     height:80vh;
     width:100vw;
+    margin-top:15.75vh;
 }
+
+#returnloc{
+    bottom: 7%;
+    left: 5%;
+    z-index: 5;
+}
+
+.btn-secondary{
+    background-color:#EE4266;
+    border:none;
+    box-shadow:none;
+}
+
+.btn-secondary:hover {
+    background-color: #270632;
+    border-color: #270632;
+}
+
+.btn-secondary:not(:disabled):not(.disabled):active, .show>.btn-secondary.dropdown-toggle {
+    background-color: #270632;
+    border-color: #270632;
+}
+
+.fa-location-arrow{
+    background-color: #EE4266;
+    border-color:#270632;
+}
+
+.fa-location-arrow:hover{
+    background-color: #270632;
+    border-color: #270632;
+}
+
+.fa-location-arrow:not(:disabled):not(.disabled):active, .show>.btn-secondary.dropdown-toggle{
+    background-color: #270632;
+    border-color: #270632;
+}
+
+
+
+.footer{
+    background-color:#0C8E56;
+    color: #FFFAED;
+    text-align:center;
+}
+
+.copyright{
+    padding-top: 1%;
+    padding-bottom: 2%;
+    margin-bottom: 0%;
+}
+

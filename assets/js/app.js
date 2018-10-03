@@ -279,7 +279,7 @@ $('#locationinput').on('focus', function(){
 
 });
 
-//Animate the cancel, filter, search buttons to disappear upon cancel click.
+//Animate the cancel, filter, search buttons to disappear upon cancel
 $('#cancel').on('click', function(){
     $('#buttons').animate({
         opacity:"-=1",

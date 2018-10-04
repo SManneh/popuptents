@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link href="https://fonts.googleapis.com/css?family=Wendy+One" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
@@ -54,15 +53,14 @@
     <div class="container-fluid">
         <div class="row d-flex flex-wrap">
             <!--Header-->
-            <div class="header fixed-top col-lg-3">
-                <img class="col-sm-12 col-md-6 col-lg-12" src="./assets/media/Logo.png" id="logo" max-width="100%" max-height="100%">
-                <p class="d-none d-lg-block col-lg-12" id="tagline">"Find your happy place"</p>
-                <div class="fixed-top d-flex justify-content-around d-lg-none" id="buttons">
+            <div class="header fixed-top">
+                <img class="col-sm-12" src="./assets/media/Logo.png" id="logo" max-width="100%" max-height="100%">
+                <div class="fixed-top d-flex justify-content-around" id="buttons">
                     <button type="reset" class="btn btn-primary" id="cancel">Cancel</button>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#filter">Filter</button>
                     <button type="submit" class="btn btn-primary">Search</button>
                 </div>
-                <div class="accordion col-sm-12 col-md-6 float-md-right d-lg-none" id="search">
+                <div class="accordion col-sm-12" id="search">
                     <div class="card">
                         <div class="card-header" id="headingOne">
                             <h5 class="mb-0">
@@ -81,99 +79,18 @@
                                 <div class="form-row">
                                     <div class="col">
                                         <input class="form-check-input" type="checkbox" id="campgrounds" checked>
-                                        <label class="form-check-label" for="campgrounds">Campgrounds</label>
+                                        <label class="form-check-label iconshow" for="campgrounds">Campgrounds</label>
                                     </div>
                                     <div class="col">
                                         <input class="form-check-input" type="checkbox" id="trails" checked>
-                                        <label class="form-check-label" for="trails">Hiking Trails</label>
+                                        <label class="form-check-label iconshow" for="trails">Hiking Trails</label>
                                     </div>   
+
                                 </div>
-                                <h5>Filter Campgrounds By Amenities</h5>
-                                <input class="form-check-input" type="checkbox" id="showers">
-                                <label class="form-check-label " for="showers">Showers</label>
-                                <input class="form-check-input" type="checkbox" id="toilets">
-                                <label class="form-check-label " for="toilets">Toilets</label>
-                                <input class="form-check-input" type="checkbox" id="internet">
-                                <label class="form-check-label " for="internet">Internet</label>
-                                <input class="form-check-input" type="checkbox" id="laundry">
-                                <label class="form-check-label " for="laundry">Laundry</label>
-                                <input class="form-check-input" type="checkbox" id="cell">
-                                <label class="form-check-label " for="cell">Cell Phone</label>
                             </form>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="filter d-sm-none d-lg-inline col-lg-3">
-                <form>
-                    <div class="input-group mb-2">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text"><i class="fas fa-search-location"></i></div>
-                        </div>
-                        <input type="text" id="locationinput" class="form-control" value="Current Location">
-                    </div>
-                    <div class="form-row">
-                        <div class="col">
-                            <input class="form-check-input" type="checkbox" id="campgrounds" checked>
-                            <label class="form-check-label iconshow" for="campgrounds">Campgrounds</label>
-                        </div>
-                        <div class="col">
-                            <input class="form-check-input" type="checkbox" id="trails" checked>
-                            <label class="form-check-label iconshow" for="trails">Hiking Trails</label>
-                        </div>   
-                    </div>
-                    <div class="form-row">
-                        <div class="col">
-                            <h5 class="col-lg-12 text-left">Campground Amenities</h5>
-                            <div class="form-row col-lg-12 filterform">
-                                <input class="form-check-input align-content-left" type="checkbox" id="showers">
-                                <label class='form-check-label' type="checkbox" for="showers">Showers</label>
-                            </div>
-                            <div class="form-row col-lg-12 filterform">
-                                <input class="form-check-input align-content-left" type="checkbox" id="toilets">
-                                <label class='form-check-label' type="checkbox" for="toilets">Toilets</label>
-                            </div>
-                            <div class="form-row col-lg-12 filterform">
-                                <input class="form-check-input align-content-left" type="checkbox" id="internet">
-                                <label class='form-check-label' type="checkbox" for="internet">Internet</label>
-                            </div>
-                            <div class="form-row col-lg-12 filterform">
-                                <input class="form-check-input align-content-left" type="checkbox" id="laundry">
-                                <label class='form-check-label' type="checkbox" for="laundry">Laundry</label>
-                            </div>
-                            <div class="form-row col-lg-12 filterform">
-                                <input class="form-check-input align-content-left" type="checkbox" id="cell">
-                                <label class='form-check-label' type="checkbox" for="cell">Cell Phone</label>
-                            </div>
-                        </div>     
-                    </div>
-                    <div class="form-row">
-                        <div class="col">
-                            <h5 class="col-lg-12 text-left">Hiking Trails</h5> <span id="tracker"></span>
-                            <div class="form-row col'lg'12 filterform">
-                                <input class="form-check-input align-content-left" type="checkbox" id="easy" checked>
-                                <label class='form-check-label' type="checkbox" for="easy">Easy Trails</label>
-                            </div>
-                            <div class="form-row col'lg'12 filterform">
-                                <input class="form-check-input align-content-left" type="checkbox" id="medium" checked>
-                                <label class='form-check-label' type="checkbox" for="medium">Moderate Trails</label>
-                            </div>
-                            <div class="form-row col'lg'12 filterform">
-                                <input class="form-check-input align-content-left" type="checkbox" id="difficult" checked>
-                                <label class='form-check-label' type="checkbox" for="difficult">Difficult Trails</label>
-                            </div>
-                            <div class="d-flex justify-content-left my-4">
-                                <span class="font-weight-bold indigo-text mr-2 minval">0 Miles</span>
-                                    <input class="border-0 custom-range" type="range" data-slider-handle="custom" data-values="0 20" min="0" max="20" id="distance" />
-                                <span class="font-weight-bold indigo-text ml-2">20 Miles</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <button type="reset" class="btn btn-third reset" data-dismiss="form">Reset</button>
-                        <button type="button" class="btn btn-third" id="save-changes">Save changes</button>
-                    </div>
-                </form>
             </div>
             <!--Div to display the map -->
 
@@ -204,7 +121,7 @@
             </div>
 
         </div>
-        <div class="footer fixed-bottom col-lg-3">
+        <div class="footer fixed-bottom">
             <p class="copyright">2018 <i class="fas fa-copyright"></i> happycampr, inc.</p>
         </div>
     </div>

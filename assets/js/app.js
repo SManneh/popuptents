@@ -6,10 +6,19 @@ let pos = {lat: 44.427963, lng: -110.588455}
 
 // Initialize Map
 function initMap() {
+
   var infoWindow = new google.maps.InfoWindow;
+
   var trails = new Array ([]);
+  var trailsPopulated = false;
+  var searchTrails = true;
   var trailsObject;
-  var isPopulated = false;
+
+  // var camps = new Array ([]);
+  // var campsPopulated = false;
+  // var searchCamps = false;
+  // var campsObject;
+
   var styledMapType = new google.maps.StyledMapType(
     [
       {
@@ -272,9 +281,9 @@ function initMap() {
           lat: position.coords.latitude,
           lng: position.coords.longitude
           };
-      // You are Here Marker
-      youAreHere = new google.maps.Marker({position: pos, map: map});
-      youAreHere.setMap(map);
+      // // You are Here Marker
+      // youAreHere = new google.maps.Marker({position: pos, map: map});
+      // youAreHere.setMap(map);
       map.setCenter(pos);
       }, function() {
           handleLocationError(true, infoWindow, map.getCenter());
@@ -282,7 +291,7 @@ function initMap() {
   } else {
       // Browser doesn't support Geolocation
       handleLocationError(false, infoWindow, map.getCenter());
-      youAreHere = new google.maps.Marker({position: pos, map: map});
+      // youAreHere = new google.maps.Marker({position: pos, map: map});
   }     
 
   // Initialize Map
@@ -320,14 +329,49 @@ function initMap() {
   });
 
   $('#populate').on('click',function(){
+    
+    // let searchCamps = $('#campgrounds').is(':checked');
+    // if(searchCamps){
+    //   // Remove markers from map
+    //   if(campsPopulated) {
+    //     for (let i=0; i<camps.length; i++) {
+    //       camps[i].setMap(null);
+    //     }
+    //     // Reset length of marker array
+    //     camps = [];
+    //     campsPopulated = false;
+    //   }
+    //   //Set lat and lng as a number for queryURL
+    //   let lat = map.getCenter().lat();
+    //   let lng = map.getCenter().lng();
+    //   let queryURL = `https://api.nps.gov/api/v1/`;
+    //   $.ajax({
+    //       url: queryURL,
+    //       method: "GET"
+    //   }).then(function(res){
+    //       //Save GET data to object for Team use to display data
+    //       campsObject = res;
+    //       //Place markers for nearby trails
+    //       for (let i=0; i<res.trails.length; i++) {
+    //           let pos = ({lat: res.trails[i].latitude, lng: res.trails[i].longitude});
+    //           camps[i] = new google.maps.Marker({position: pos, map: map});
+    //           camps[i].setMap(map);
+    //       }
+    //   //set flag to track whether markers have been created once before.
+    //   campsPopulated = true;
+    //   });
+    // }
+    
+    let searchTrails = $('#trails').is(':checked');
+    if(searchTrails){
       // Remove markers from map
-      if(isPopulated) {
+      if(trailsPopulated) {
           for (let i=0; i<trails.length; i++) {
               trails[i].setMap(null);
           }
           // Reset length of marker array
           trails = [];
-          isPopulated = false;
+          trailsPopulated = false;
       }
       //Set lat and lng as a number for queryURL
       let lat = map.getCenter().lat();
@@ -339,6 +383,7 @@ function initMap() {
       }).then(function(res){
           //Save GET data to object for Team use to display data
           trailsObject = res;
+          console.log(trailsObject);
           //Place markers for nearby trails
           for (let i=0; i<res.trails.length; i++) {
               let pos = ({lat: res.trails[i].latitude, lng: res.trails[i].longitude});
@@ -346,10 +391,19 @@ function initMap() {
               trails[i].setMap(map);
           }
       //set flag to track whether markers have been created once before.
-      isPopulated = true;
+      trailsPopulated = true;
       });
+    } else {
+    for (let i=0; i<trails.length; i++) {
+      trails[i].setMap(null);
+    }
+    // Reset length of marker array
+    trails = [];
+    trailsPopulated = false;
+    }
   });
 }
+
 
 
 

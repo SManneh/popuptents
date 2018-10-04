@@ -308,7 +308,6 @@ function initMap() {
 
   // Reset view to current location.
   $('#returnloc').on('click',function(){
-      console.log(pos.lng)
       map.setCenter(pos);
   });
   

@@ -129,3 +129,133 @@
 }
 
 /************************************************ End of Footer Styling **************************************************************/
+
+@media only screen and (min-width: 768px) {
+    .header{
+        height:10vh;
+    }
+    
+    #map{
+        height:90vh;
+        margin-top: 8.75vh;
+    }
+    #logo{
+        margin-top:2%;
+    }
+
+    #search{
+        margin-top: 5%;
+    }
+    
+}
+
+@media only screen and (min-width: 992px){
+    .filter{
+        height: 85vh;
+        background-color:#FFFAED;
+        z-index:4;
+        margin-top:15vh;
+    }
+    form{
+        padding-top: 2vh;
+    }
+    .header{
+        height:15vh;
+    }
+
+    .iconshow{
+        color:#270632;
+    }
+
+    #tagline{
+        color: #FFFAED;
+        font-family: 'Wendy One';
+        text-align:center;
+        font-size: 1.5em;
+    }
+    #logo{
+        height:10vh;
+        width:auto;
+        margin-top:0;
+    }
+
+    #map{
+        height: 100vh;
+        margin-left: 25vw;
+        width: 75vw;
+        margin-top: 0;
+    }
+
+    #returnloc{
+        bottom: 3%;
+        left: 27%;
+        z-index: 5;
+    }
+
+    h5{
+        padding-top:3%;
+    }
+    .filterform{
+        padding-left:11%;
+    }
+
+    .btn-third{
+        background-color: #FFFAED;
+        color:#270632;
+        margin-left:4%;
+        margin-top:5%;
+    }
+
+    .custom-range{
+        width:40%;
+       margin-left:0;
+    }
+    .custom-range::-webkit-slider-thumb {
+         background: #0C8E56;
+    }
+       
+        .custom-range::-webkit-slider-thumb:hover {
+         background: #0C8E56;
+        }
+   
+        .custom-range:active::-webkit-slider-thumb {
+           background: #EE4266;
+        }
+       
+        .custom-range::-moz-range-thumb {
+         background: #EE4266;
+        }
+        .custom-range::-moz-range-thumb:hover {
+         background: #EE4266;
+        }
+        
+        .custom-range:active::-moz-range-thumb {
+         background: #EE4266;
+        }
+
+input[type="range"][multiple] {
+  display: block;
+  height: $multiRangeHeight;
+  margin: 0;
+  pointer-events: none;
+  
+  & + input[type="range"][multiple] {
+    margin-top: $multiRangeHeight * -1;
+  }
+}
+
+@mixin multirange-thumb {
+  pointer-events: all;
+}
+input[type="range"]::-webkit-slider-thumb {
+  @include multirange-thumb;
+}
+input[type="range"]::-moz-range-thumb {
+  @include multirange-thumb;
+}
+input[type="range"]::-ms-thumb {
+  @include multirange-thumb;
+}
+        
+
+    

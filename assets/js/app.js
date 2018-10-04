@@ -385,6 +385,14 @@ $('#cancel').on('click', function(){
   $('#collapseOne').collapse('hide');
 });
 
+$("#distance").on('input', function(){
+  $('.minval').text($('#distance').val() + " Miles");
+})
+
+$('.reset').on('click', function(){
+  $('.minval').text("0 Miles");
+})
+
 
 
 

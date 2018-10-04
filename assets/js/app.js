@@ -10,16 +10,16 @@
 // }
 
 const campSites = [];
-const queryURL = 'https://developer.nps.gov/api/v1/campgrounds?total=611&api_key=8y6XS6YXPcnGb4WJty65Kktjn72zJhZ4q4jkfzkz';
+const queryURL = 'https://developer.nps.gov/api/v1/campgrounds?total=611&fields=addresses&api_key=8y6XS6YXPcnGb4WJty65Kktjn72zJhZ4q4jkfzkz';
   
 console.log(queryURL);
 $.ajax({
   url:queryURL,
   method:"GET" 
 }).then(function(response){
-console.log(response);
- 
-console.log(response.data[0]);
+// console.log(response);
+
+
 for (let i = 0; i < response.data.length; i++){
     let currentItem = response.data[i];
     if ( currentItem.latLong ){
@@ -32,7 +32,7 @@ for (let i = 0; i < response.data.length; i++){
                 city: currentItem.addresses[1].city,
                 state: currentItem.addresses[1].stateCode,
                 zip: currentItem.addresses[1].postalCode
-            },
+            }, 
             amenities: {
                 showers: currentItem.amenities.showers,
                 toilets:  currentItem.amenities.toilets,
@@ -48,14 +48,15 @@ for (let i = 0; i < response.data.length; i++){
                ada: currentItem.accessibility.adaInfo,
                addInfo: currentItem.accessibility.additionalInfo
 
-           },
-        };
+           }
+        }; 
+    
         
         campSites.push(thisCampSite);
     }
     
-//     // let contact = response.data[i].
-
+// //     // let contact = response.data[i].
+   console.log(response.data[i].name)
 }
 
 });

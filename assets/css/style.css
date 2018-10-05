@@ -287,8 +287,18 @@ h5{
     h5{
         padding-top:3%;
     }
+
+    h3{
+        margin-top: 14%;
+        margin-bottom: 8%;
+        margin-left: -5%;
+    }
     .filterform{
         padding-left:11%;
+    }
+
+    .hikingtitle{
+        margin-top:3%;
     }
 
     .btn-third{
@@ -363,6 +373,16 @@ h5{
     }
     .trailtitle{
         margin:5% 4%;
+    }
+    
+    .desktopbuttons{
+        margin-top: 0vh;
+        margin-left: 8%;
+    }
+    
+    .mb-4, .my-4 {
+        margin-bottom: 1.5rem!important;
+        padding-left: 3%;
     }
 }
 

@@ -19,16 +19,32 @@ $.ajax({
 }).then(function(response){
 // console.log(response);
 
+// function camps(list) {
+//     if (list === 0 || list === 1)
+//       console.log(1);
+//     else
+//       return (n * camps(n - 1));
+//   }
+//   camps(response);
 
-for (let i = 0; i < response.data.length; i++){
-    let currentItem = response.data[i];
-    if ( currentItem.latLong ){
+
+
+    const currentItem = response;
+    
+
+    
+    for (let i = 0; i < currentItem.data.length; i++){
+    const user ={
+        location:{lat:38.7773329, lng:-109.5887991}
+    };
+   
+    if ( currentItem.data[i].latLong != user.location ){
         let thisCampSite = {
-            name : currentItem.name,
+            name : currentItem.data.name,
             description: currentItem.description,
             location:  currentItem.latLong,
             addresses: {
-                line: currentItem.addresses[1].line1,
+                line: currentItem.data.addresses[1].line1,
                 city: currentItem.addresses[1].city,
                 state: currentItem.addresses[1].stateCode,
                 zip: currentItem.addresses[1].postalCode
@@ -51,12 +67,15 @@ for (let i = 0; i < response.data.length; i++){
            }
         }; 
     
-        
+        //pushing thisCampSite obj into campSites arry
         campSites.push(thisCampSite);
+        console.log(campSites);
+    }else{
+        console.log('location needed')
     }
     
-// //     // let contact = response.data[i].
-   console.log(response.data[i].name)
+//     // let contact = response.data[i]. 
+//    console.log(response.data[i].name)
 }
 
 });

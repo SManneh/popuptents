@@ -414,6 +414,34 @@ $('.reset').on('click', function(){
   $('.maxval').text("20 Miles");
 });
  
+$("#distance-d").on('input', function(){
+  $('.minval-d').text($('#distance-d').val() + " Miles");
+  let minval = parseInt($('#distance-d').val());
+  let maxval = parseInt($('#distancehigh-d').val());
+  if (minval >= (maxval-1)){
+    $('#distance-d').prop("value", (maxval-1));
+    $('.minval-d').text((maxval-1)+ " Miles");
+    event.stopPropagation;
+    return;
+  };
+});
+
+$("#distancehigh-d").on('input', function(){
+  $('.maxval-d').text($('#distancehigh-d').val() + " Miles");
+  let minval = parseInt($('#distance-d').val());
+  let maxval = parseInt($('#distancehigh-d').val());
+  if (maxval <= minval + 1){
+    $('#distancehigh-d').prop("value", (minval + 1));
+    $('.maxval-d').text((minval+1)+ " Miles");
+    event.stopPropagation();
+    return;
+  };
+});
+
+$('.reset-d').on('click', function(){
+  $('.minval-d').text("0 Miles");
+  $('.maxval-d').text("20 Miles");
+});
 
 
 

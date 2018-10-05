@@ -347,18 +347,18 @@ h5{
         z-index:3;
     }
 
-    #distancehigh::-webkit-slider-runnable-track{
+    #distancehigh-d::-webkit-slider-runnable-track{
         background-color:transparent;
         pointer-events:none;    
     }
 
 
-    #distancehigh{
+    #distancehigh-d{
         margin-left: -40%;
         z-index:1;
     }
 
-    .minval{
+    .minval-d{
         padding-right:1%;
         position:absolute;
         text-align:right;

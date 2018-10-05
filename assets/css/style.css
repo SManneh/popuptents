@@ -30,6 +30,7 @@
 .card{
     background-color:#0C8E56;
     width:100%;
+    border:none;
 }
 
 .col{
@@ -39,6 +40,23 @@
 
 .iconshow{
     color:#FFFAED;
+}
+
+h3{
+    font-size:1.65em;
+    margin-top:3%;
+    margin-bottom:3%;
+}
+
+}
+h4{
+    margin-top:5%;
+    font-size:1.25em;
+}
+
+h5{
+    margin-top:2%;
+    font-size:1em;
 }
 /**************************** Cancel Search Filter button stylings *****************************/
 #buttons{
@@ -64,6 +82,63 @@
     border-color: #EE4266;
 }
 
+/************************************* Start of Modal Stylings *************************************/
+
+.custom-range{
+    width:40%;
+    margin-left:20%;
+    pointer-events:none;
+ }
+ .custom-range::-webkit-slider-thumb {
+    background: #0C8E56;
+    pointer-events:auto;
+ }
+    
+ .custom-range::-webkit-slider-thumb:hover {
+    background: #0C8E56;
+ }
+
+ .custom-range:active::-webkit-slider-thumb {
+    background: #EE4266;
+ }
+    
+ .custom-range::-moz-range-thumb {
+    background: #EE4266;
+ }
+     
+ .custom-range::-moz-range-thumb:hover {
+    background: #EE4266;
+ }
+     
+ .custom-range:active::-moz-range-thumb {
+    background: #EE4266;
+ }
+
+ #distancehigh::-webkit-slider-runnable-track{
+    background-color:transparent;
+    pointer-events:none;    
+ }
+
+
+ #distancehigh{
+    margin-left: -40%;
+ }
+
+ .minval{
+    padding-right:1%;
+    position:absolute;
+    text-align:right;
+ }
+ .trailtitle{
+    margin:5% 0%;
+ }
+
+h5{
+    padding:0;
+}
+
+
+/**************************************** End of Modal Stylings ************************************/
 
 /**************************** End of Header Styling *******************************************/
 
@@ -206,56 +281,73 @@
         margin-top:5%;
     }
 
+    .btn-third:hover {
+        background-color: #EE4266;
+        border-color: #EE4266;
+    }
+    
+    .btn-third:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
+        background-color: #EE4266;
+        border-color: #EE4266;
+    }
+
     .custom-range{
-        width:40%;
-       margin-left:0;
+       width:40%;
+       margin-left:20%;
+       z-index:1;
+       pointer-events:none;
     }
     .custom-range::-webkit-slider-thumb {
-         background: #0C8E56;
+        background: #0C8E56;
+        z-index:5;
+        pointer-events:auto;
     }
        
-        .custom-range::-webkit-slider-thumb:hover {
-         background: #0C8E56;
-        }
+    .custom-range::-webkit-slider-thumb:hover {
+        background: #0C8E56;
+        z-index:3;
+    }
    
-        .custom-range:active::-webkit-slider-thumb {
-           background: #EE4266;
-        }
+    .custom-range:active::-webkit-slider-thumb {
+        background: #EE4266;
+        z-index:3;
+    }
        
-        .custom-range::-moz-range-thumb {
-         background: #EE4266;
-        }
-        .custom-range::-moz-range-thumb:hover {
-         background: #EE4266;
-        }
+    .custom-range::-moz-range-thumb {
+        background: #EE4266;
+        z-index:3;
+    }
         
-        .custom-range:active::-moz-range-thumb {
-         background: #EE4266;
-        }
-
-input[type="range"][multiple] {
-  display: block;
-  height: $multiRangeHeight;
-  margin: 0;
-  pointer-events: none;
-  
-  & + input[type="range"][multiple] {
-    margin-top: $multiRangeHeight * -1;
-  }
-}
-
-@mixin multirange-thumb {
-  pointer-events: all;
-}
-input[type="range"]::-webkit-slider-thumb {
-  @include multirange-thumb;
-}
-input[type="range"]::-moz-range-thumb {
-  @include multirange-thumb;
-}
-input[type="range"]::-ms-thumb {
-  @include multirange-thumb;
-}
+    .custom-range::-moz-range-thumb:hover {
+        background: #EE4266;
+        z-index:3;
+    }
         
+    .custom-range:active::-moz-range-thumb {
+        background: #EE4266;
+        z-index:3;
+    }
+
+    #distancehigh::-webkit-slider-runnable-track{
+        background-color:transparent;
+        pointer-events:none;    
+    }
+
+
+    #distancehigh{
+        margin-left: -40%;
+        z-index:1;
+    }
+
+    .minval{
+        padding-right:1%;
+        position:absolute;
+        text-align:right;
+    }
+    .trailtitle{
+        margin:5% 4%;
+    }
+}
+
 
     

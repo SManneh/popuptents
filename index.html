@@ -43,7 +43,28 @@
                     <input class="form-check-input" type="checkbox" value="" id="cellPhone">
                     <label class="form-check-label" for="defaultCheck1">Cell Phone</label>
                 </div>
+                <h5 class="text-left">Hiking Trails</h5> 
+                <div class="form-check">
+                    <input class="form-check-input align-content-left" type="checkbox" id="easy" checked>
+                    <label class='form-check-label' type="checkbox" for="easy">Easy Trails</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input align-content-left" type="checkbox" id="medium" checked>
+                    <label class='form-check-label' type="checkbox" for="medium">Moderate Trails</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input align-content-left" type="checkbox" id="difficult" checked>
+                    <label class='form-check-label' type="checkbox" for="difficult">Difficult Trails</label>
+                </div>
+                <h5 class="text-left trailtitle">Hiking Trail Length</h5>
+                <div class="d-flex justify-content-left my-4">
+                    <span class="font-weight-bold indigo-text mr-2 minval">0 Miles</span>
+                        <input class="border-0 custom-range" type="range" data-slider-handle="custom" value="0" min="0" max="20" id="distance" />
+                        <input class="border-0 custom-range" type="range" data-slider-handle="custom" value="20" min="0" max="20" id="distancehigh" />           
+                    <span class="font-weight-bold indigo-text ml-2 maxval">20 Miles</span>
+                </div>
             </div>
+
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-secondary" id="save-changes">Save changes</button>
@@ -88,17 +109,6 @@
                                         <label class="form-check-label" for="trails">Hiking Trails</label>
                                     </div>   
                                 </div>
-                                <h5>Filter Campgrounds By Amenities</h5>
-                                <input class="form-check-input" type="checkbox" id="showers">
-                                <label class="form-check-label " for="showers">Showers</label>
-                                <input class="form-check-input" type="checkbox" id="toilets">
-                                <label class="form-check-label " for="toilets">Toilets</label>
-                                <input class="form-check-input" type="checkbox" id="internet">
-                                <label class="form-check-label " for="internet">Internet</label>
-                                <input class="form-check-input" type="checkbox" id="laundry">
-                                <label class="form-check-label " for="laundry">Laundry</label>
-                                <input class="form-check-input" type="checkbox" id="cell">
-                                <label class="form-check-label " for="cell">Cell Phone</label>
                             </form>
                         </div>
                     </div>
@@ -124,7 +134,8 @@
                     </div>
                     <div class="form-row">
                         <div class="col">
-                            <h5 class="col-lg-12 text-left">Campground Amenities</h5>
+                            <h3 class="col-lg-12 text-center">Filter Results</h3>
+                            <h4 class="col-lg-12 text-left">Campground Amenities</h4>
                             <div class="form-row col-lg-12 filterform">
                                 <input class="form-check-input align-content-left" type="checkbox" id="showers">
                                 <label class='form-check-label' type="checkbox" for="showers">Showers</label>
@@ -149,23 +160,25 @@
                     </div>
                     <div class="form-row">
                         <div class="col">
-                            <h5 class="col-lg-12 text-left">Hiking Trails</h5> <span id="tracker"></span>
-                            <div class="form-row col'lg'12 filterform">
+                            <h4 class="col-lg-12 text-left">Hiking Trails</h4> 
+                            <div class="form-row col-lg-12 filterform">
                                 <input class="form-check-input align-content-left" type="checkbox" id="easy" checked>
                                 <label class='form-check-label' type="checkbox" for="easy">Easy Trails</label>
                             </div>
-                            <div class="form-row col'lg'12 filterform">
+                            <div class="form-row col-lg-12 filterform">
                                 <input class="form-check-input align-content-left" type="checkbox" id="medium" checked>
                                 <label class='form-check-label' type="checkbox" for="medium">Moderate Trails</label>
                             </div>
-                            <div class="form-row col'lg'12 filterform">
+                            <div class="form-row col-lg-12 filterform">
                                 <input class="form-check-input align-content-left" type="checkbox" id="difficult" checked>
                                 <label class='form-check-label' type="checkbox" for="difficult">Difficult Trails</label>
                             </div>
+                            <h5 class="col-lg-12 text-left">Hiking Trail Length</h5>
                             <div class="d-flex justify-content-left my-4">
                                 <span class="font-weight-bold indigo-text mr-2 minval">0 Miles</span>
-                                    <input class="border-0 custom-range" type="range" data-slider-handle="custom" data-values="0 20" min="0" max="20" id="distance" />
-                                <span class="font-weight-bold indigo-text ml-2">20 Miles</span>
+                                    <input class="border-0 custom-range" type="range" data-slider-handle="custom" value="0" min="0" max="20" id="distance" />
+                                    <input class="border-0 custom-range" type="range" data-slider-handle="custom" value="20" min="0" max="20" id="distancehigh" />           
+                                <span class="font-weight-bold indigo-text ml-2 maxval">20 Miles</span>
                             </div>
                         </div>
                     </div>

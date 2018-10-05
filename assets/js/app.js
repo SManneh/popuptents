@@ -387,11 +387,33 @@ $('#cancel').on('click', function(){
 
 $("#distance").on('input', function(){
   $('.minval').text($('#distance').val() + " Miles");
-})
+  let minval = parseInt($('#distance').val());
+  let maxval = parseInt($('#distancehigh').val());
+  if (minval >= (maxval-1)){
+    $('#distance').prop("value", (maxval-1));
+    $('.minval').text((maxval-1)+ " Miles");
+    event.stopPropagation;
+    return;
+  };
+});
+
+$("#distancehigh").on('input', function(){
+  $('.maxval').text($('#distancehigh').val() + " Miles");
+  let minval = parseInt($('#distance').val());
+  let maxval = parseInt($('#distancehigh').val());
+  if (maxval <= minval + 1){
+    $('#distancehigh').prop("value", (minval + 1));
+    $('.maxval').text((minval+1)+ " Miles");
+    event.stopPropagation();
+    return;
+  };
+});
 
 $('.reset').on('click', function(){
   $('.minval').text("0 Miles");
-})
+  $('.maxval').text("20 Miles");
+});
+ 
 
 
 

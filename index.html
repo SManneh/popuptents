@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link href="https://fonts.googleapis.com/css?family=Wendy+One" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
@@ -66,7 +65,7 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Clogutse</button>
                 <button type="button" class="btn btn-secondary" id="save-changes">Save changes</button>
             </div>
             </div>
@@ -75,15 +74,21 @@
     <div class="container-fluid">
         <div class="row d-flex flex-wrap">
             <!--Header-->
+
+            <div class="header fixed-top">
+                <img class="col-sm-12" src="./assets/media/Logo.png" id="logo" max-width="100%" max-height="100%">
+                <div class="fixed-top d-flex justify-content-around" id="buttons">
+
             <div class="header fixed-top col-lg-3">
                 <img class="col-sm-12 col-md-6 col-lg-12" src="./assets/media/Logo.png" id="logo" max-width="100%" max-height="100%">
                 <p class="d-none d-lg-block col-lg-12" id="tagline">"Find your happy place"</p>
                 <div class="fixed-top d-flex justify-content-around d-lg-none col-sm-12 col-md-6" id="buttons">
+
                     <button type="reset" class="btn btn-primary" id="cancel">Cancel</button>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#filter">Filter</button>
                     <button type="submit" class="btn btn-primary">Search</button>
                 </div>
-                <div class="accordion col-sm-12 col-md-6 float-md-right d-lg-none" id="search">
+                <div class="accordion col-sm-12" id="search">
                     <div class="card">
                         <div class="card-header" id="headingOne">
                             <h5 class="mb-0">
@@ -102,18 +107,20 @@
                                 <div class="form-row">
                                     <div class="col">
                                         <input class="form-check-input" type="checkbox" id="campgrounds" checked>
-                                        <label class="form-check-label" for="campgrounds">Campgrounds</label>
+                                        <label class="form-check-label iconshow" for="campgrounds">Campgrounds</label>
                                     </div>
                                     <div class="col">
                                         <input class="form-check-input" type="checkbox" id="trails" checked>
-                                        <label class="form-check-label" for="trails">Hiking Trails</label>
+                                        <label class="form-check-label iconshow" for="trails">Hiking Trails</label>
                                     </div>   
+
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
+
             <div class="filter d-sm-none d-lg-inline col-lg-3">
                 <form>
                     <div class="input-group mb-2">
@@ -217,7 +224,7 @@
             </div>
 
         </div>
-        <div class="footer fixed-bottom col-lg-3">
+        <div class="footer fixed-bottom">
             <p class="copyright">2018 <i class="fas fa-copyright"></i> happycampr, inc.</p>
         </div>
     </div>
@@ -228,5 +235,6 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCyHsn9dQoGsrijNRNtLiPTaILSC3Xkj3g&callback=initMap"
             type="text/javascript" async defer></script>
     <script src = "./assets/js/app.js"></script>
+
 </body>
 </html>

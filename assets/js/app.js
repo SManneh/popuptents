@@ -9,62 +9,60 @@
 //     console.log("Longitude: " + position.coords.longitude); 
 // }
 
-const campSites = [];
+var campSite = [];
 const queryURL = 'https://developer.nps.gov/api/v1/campgrounds?total=611&fields=addresses&api_key=8y6XS6YXPcnGb4WJty65Kktjn72zJhZ4q4jkfzkz';
-  
-console.log(queryURL);
+
+
+
+
+// var modelCampSite =
+//   { 
+//     name: '', 
+//     description: '',
+//     location:  '',
+//     addresses: ''
+//   [{
+//       line: '',
+//       city: '',
+//       state: '',
+//       zip: ''
+//     }],
+// amenities: [{
+//     showers: '',
+//     toilets:  '',
+//     internetNetwork: '',
+//     laundry: '',
+//     cellPhone: ''
+// }],
+// accessibility: [{
+//    roads: '',
+//    cell: '',
+//    internet: '',
+//    wheelChair: '',
+//    ada: '',
+//    addInfo: '' 
+//   }]
+// }];
+
+var thisCampsite = [];
+
+
 $.ajax({
   url:queryURL,
   method:"GET" 
 }).then(function(response){
-// console.log(response);
+  for(let i=0; i<response.data.length; i++){
+    thisCampsite.push(response.data[i]);
+  }
+    console.log(thisCampsite);
+  });
 
 
-for (let i = 0; i < response.data.length; i++){
-    let currentItem = response.data[i];
-    if ( currentItem.latLong ){
-        let thisCampSite = {
-            name : currentItem.name,
-            description: currentItem.description,
-            location:  currentItem.latLong,
-            addresses: {
-                line: currentItem.addresses[1].line1,
-                city: currentItem.addresses[1].city,
-                state: currentItem.addresses[1].stateCode,
-                zip: currentItem.addresses[1].postalCode
-            }, 
-            amenities: {
-                showers: currentItem.amenities.showers,
-                toilets:  currentItem.amenities.toilets,
-                internetNetwork: currentItem.amenities.internetConnectivity,
-                laundry: currentItem.amenities.laundry,
-                cellPhone: currentItem.amenities.cellPhoneReception
-            },
-           accessibility: {
-               roads: currentItem.accessibility.accessRoads,
-               cell: currentItem.accessibility.cellPhoneInfo,
-               internet: currentItem.accessibility.internetinfo,
-               wheelChair: currentItem.accessibility.wheelChairAccess,
-               ada: currentItem.accessibility.adaInfo,
-               addInfo: currentItem.accessibility.additionalInfo
 
-           }
-        }; 
-    
-        
-        campSites.push(thisCampSite);
-    }
-    
-// //     // let contact = response.data[i].
-   console.log(response.data[i].name)
-}
-
-});
-// });
 const key = "200367477-2b5b5ee846692e48eb30894d0d0c74ce";
 let max = "30";
 let pos = {lat: 44.427963, lng: -110.588455}
-
+var trailsIcon;
 
 
 // Initialize Map
@@ -72,15 +70,36 @@ function initMap() {
 
   var infoWindow = new google.maps.InfoWindow;
 
-  var trails = new Array ([]);
+  var trails = [];
   var trailsPopulated = false;
   var searchTrails = true;
   var trailsObject;
+  // var trailsIcon = {
+  //   path: 'M0-48c-9.8 0-17.7 7.8-17.7 17.4 0 15.5 17.7 30.6 17.7 30.6s17.7-15.4 17.7-30.6c0-9.6-7.9-17.4-17.7-17.4z',
+  //   fillColor: 'green',
+  //   fillOpacity: 1,
+  //   scale: .6,
+  //   strokeColor: 'white',
+  //   strokeWeight: 2
+  // }
+  var trailsIcon = {
+    url: "./assets/media/hiker.png",
+    // This marker is 20 pixels wide by 32 pixels high.
+    size: new google.maps.Size(20, 34),
+    // The origin for this image is (0, 0).
+    origin: new google.maps.Point(0, 0),
+    // The anchor for this image is the base of the flagpole at (0, 32).
+    anchor: new google.maps.Point(0, 34)
+  };
+  var shape = {
+    coords: [1, 1, 1, 20, 32, 20, 32, 1],
+    type: 'poly'
+  };
 
-  // var camps = new Array ([]);
-  // var campsPopulated = false;
-  // var searchCamps = false;
-  // var campsObject;
+  var camps = [];
+  var campsPopulated = false;
+  var searchCamps = true;
+  var campsObject;
 
   var styledMapType = new google.maps.StyledMapType(
     [
@@ -391,6 +410,8 @@ function initMap() {
     infoWindow.open(map);
   });
 
+
+
   $('#populate').on('click',function(){
     
     // let searchCamps = $('#campgrounds').is(':checked');
@@ -425,7 +446,7 @@ function initMap() {
     //   });
     // }
     
-    let searchTrails = $('#trails').is(':checked');
+    searchTrails = $('#trails').is(':checked');
     if(searchTrails){
       // Remove markers from map
       if(trailsPopulated) {
@@ -433,7 +454,7 @@ function initMap() {
               trails[i].setMap(null);
           }
           // Reset length of marker array
-          trails = [];
+          trails = [''];
           trailsPopulated = false;
       }
       //Set lat and lng as a number for queryURL
@@ -445,12 +466,18 @@ function initMap() {
           method: "GET"
       }).then(function(res){
           //Save GET data to object for Team use to display data
-          trailsObject = res;
+          trailsObject = res.trails;
           console.log(trailsObject);
           //Place markers for nearby trails
-          for (let i=0; i<res.trails.length; i++) {
-              let pos = ({lat: res.trails[i].latitude, lng: res.trails[i].longitude});
-              trails[i] = new google.maps.Marker({position: pos, map: map});
+          for (let i=0; i<trailsObject.length; i++) {
+              let pos = ({lat: trailsObject[i].latitude, lng: trailsObject[i].longitude});
+              trails[i] = new google.maps.Marker({
+                icon: trailsIcon,
+                shape: shape,
+                title: trailsObject[i].name,
+                position: pos,
+                map: map
+              });
               trails[i].setMap(map);
           }
       //set flag to track whether markers have been created once before.

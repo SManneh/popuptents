@@ -4,6 +4,7 @@
     z-index:1000;
 }
 /**********Collapse Styling ************/
+
 .card-header{
     background-color:#0C8E56;
     border:none;
@@ -137,7 +138,17 @@ h5{
     padding:0;
 }
 
+.modal-header{
+    background-color:#FFFAED;
+}
 
+.modal-body{
+    background-color:#FFFAED;
+}
+
+.modal-footer{
+    background-color:#FFFAED;
+}
 /**************************************** End of Modal Stylings ************************************/
 
 /**************************** End of Header Styling *******************************************/
@@ -146,7 +157,7 @@ h5{
 #map{
     height:80vh;
     width:100vw;
-    margin-top:15.75vh;
+    margin-top:15vh;
 }
 
 #returnloc{
@@ -207,7 +218,7 @@ h5{
 
 @media only screen and (min-width: 768px) {
     .header{
-        height:10vh;
+        height:12vh;
     }
     
     #map{
@@ -219,9 +230,17 @@ h5{
     }
 
     #search{
-        margin-top: 5%;
+        margin-top: 4%;
+    }
+
+    .accordian{
+       z-index:5;
+        
     }
     
+    #buttons{
+        margin-top: 2%;
+    }
 }
 
 @media only screen and (min-width: 992px){

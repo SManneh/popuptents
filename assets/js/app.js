@@ -10,7 +10,7 @@
 // }
 
 var campSite = [];
-const queryURL = 'https://ridb.recreation.gov/api/v1/organizations/128/facilities?activity=9&limit=200&apikey=38BDFB83F3714D9D9CBB807B847E4340';
+let queryURL = 'https://ridb.recreation.gov/api/v1/organizations/128/facilities?activity=9&limit=200&apikey=38BDFB83F3714D9D9CBB807B847E4340';
 
 
 
@@ -47,28 +47,20 @@ const queryURL = 'https://ridb.recreation.gov/api/v1/organizations/128/facilitie
 var thisCampsite = [];
 
 
-// $.ajax({
-//   url:queryURL,
-//   method:"GET" 
-// }).then(function(response){
-//     console.log(response);
-//     console.log(pos);
-//   });
-
-
-
 const key = "200367477-2b5b5ee846692e48eb30894d0d0c74ce";
 let max = "30";
 let pos = {lat: 44.427963, lng: -110.588455}
 var trailsIcon;
-var runOnce = false;
+var runOnce = false;  
 
 // Initialize Map
 function initMap() {
   var infoWindow = new google.maps.InfoWindow;
 
   var youAreHere;
-
+  var trailDifficulty = [true, true, true];
+  var trailLow = 0;
+  var trailHigh = 20;
   var trails = [];
   var trailsPopulated = false;
   var trailsObject;
@@ -399,9 +391,84 @@ function initMap() {
     pos = map.getCenter();
   });
 
+  $("#form-d").submit(function(event){
+    event.preventDefault();
+    let address = $("#locationinput-d").val().trim();
+    queryURL=`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyCyHsn9dQoGsrijNRNtLiPTaILSC3Xkj3g`;
+    searchByAddress(queryURL);
+    }); 
+  
+  $("#form").submit(function(event){  
+    event.preventDefault();
+    let address = $("#locationinput").val().trim();
+    queryURL=`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyCyHsn9dQoGsrijNRNtLiPTaILSC3Xkj3g`;
+    searchByAddress(queryURL);
+  });
+  
+  //Filter save changes.
+  $("#save-changes").click(function(event){
+    event.preventDefault;
+    trailDifficulty = [];
+    if($("#easy").is(':checked')) {
+      trailDifficulty.push(true);
+    } else trailDifficulty.push(false);
+    if($("#medium").is(':checked')) {
+      trailDifficulty.push(true);
+    } else trailDifficulty.push(false);
+    if($("#difficult").is(':checked')) {
+      trailDifficulty.push(true);
+    } else trailDifficulty.push(false);
+    console.log(trailDifficulty);
+    trailLow = parseInt($('#distance').val());
+    trailHigh = parseInt($('#distancehigh').val());
+    });
+  
+    $("#save-changes-d").click(function(event){
+      event.preventDefault;
+      trailDifficulty = [];
+      if($("#easy-d").is(':checked')) {
+        trailDifficulty.push(true);
+      } else trailDifficulty.push(false);
+      if($("#medium-d").is(':checked')) {
+        trailDifficulty.push(true);
+      } else trailDifficulty.push(false);
+      if($("#difficult-d").is(':checked')) {
+        trailDifficulty.push(true);
+      } else trailDifficulty.push(false);
+      console.log(trailDifficulty);
+      trailLow = parseInt($('#distance-d').val());
+      trailHigh = parseInt($('#distancehigh-d').val());
+      });
+  
+  function searchByAddress(queryURL){
+    $.ajax({
+      url:queryURL,
+      method:"GET" 
+    }).then(function(response){
+      pos = response.results[0].geometry.location;
+      map.setCenter(pos);
+    });
+  }
+
 
   $('#populate').on('click',function(){
     
+    function placeMarkers(i, counter){
+      let pos = ({lat: trailsObject[i].latitude, lng: trailsObject[i].longitude});
+      trails.push(new google.maps.Marker({
+        icon: trailsIcon,
+        shape: trShape,
+        title: trailsObject[i].name,
+        position: pos,
+        map: map
+      }));
+      //This is the marker name.
+      $(this).addClass(`hiker${i}`);
+      trails[counter].setMap(map);
+      console.log(trails[counter]);
+      return counter++;
+    }
+
     if($('#campgrounds').is(':checked')&&$('#campgrounds-d').is(':checked')){
       // Remove markers from map
       if(campsPopulated) {
@@ -434,22 +501,31 @@ function initMap() {
                 position: pos,
                 map: map
               });
+              //This is the marker name.
               $(this).addClass(`campfire${i}`);
               camps[i].setMap(map);
           }
       //set flag to track whether markers have been created once before.
       campsPopulated = true;
       });
+    } else {
+      for (let i=0; i<camps.length; i++) {
+        camps[i].setMap(null);
+      }
+      // Reset length of marker array
+      camps = [];
+      campsPopulated = false;
     }
     
     if($('#trails').is(':checked')&&$('#trails-d').is(':checked')){
       // Remove markers from map
       if(trailsPopulated) {
-          for (let i=0; i<trails.length; i++) {
-              trails[i].setMap(null);
-          }
-          // Reset length of marker array
-          trailsPopulated = false;
+        for (let i=0; i<trails.length; i++) {
+          trails[i].setMap(null);
+        }
+        // Reset length of marker array
+        trails = [];
+        trailsPopulated = false;
       }
       //Set lat and lng as a number for queryURL
       let lat = map.getCenter().lat();
@@ -459,33 +535,32 @@ function initMap() {
           url: queryURL,
           method: "GET"
       }).then(function(res){
-          //Save GET data to object for Team use to display data
-          trailsObject = res.trails;
-          console.log(trailsObject);
-          //Place markers for nearby trails
-          for (let i=0; i<trailsObject.length; i++) {
-              let pos = ({lat: trailsObject[i].latitude, lng: trailsObject[i].longitude});
-              trails[i] = new google.maps.Marker({
-                icon: trailsIcon,
-                shape: trShape,
-                title: trailsObject[i].name,
-                position: pos,
-                map: map
-              });
-              $(this).addClass(`hiker${i}`);
-              trails[i].setMap(map);
+        //Filtering difficulty and length for trails.
+        trailsObject = res.trails;
+        let counter = 0;
+          for(let i = 0; i<trailsObject.length; i++) {
+            let check = ["green", "blue", "black"];
+            for(let j = 0; j<trailDifficulty.length; j++) {
+              if(trailDifficulty[j]) {
+                if((trailsObject[i].difficulty.indexOf(check[j]) === 0) && (parseInt(trailsObject[i].length)>=trailLow && parseInt(trailsObject[i].length) <= trailHigh)) {
+                  //Place markers for nearby trails
+                  placeMarkers(i, counter);
+                } 
+              }
+            }
           }
       //set flag to track whether markers have been created once before.
       trailsPopulated = true;
+      trailsObject = [];
       });
     } else {
     for (let i=0; i<trails.length; i++) {
       trails[i].setMap(null);
     }
+  
     // Reset length of marker array
-    trails = [];
     trailsPopulated = false;
-    }
+    } 
   });
 }
 

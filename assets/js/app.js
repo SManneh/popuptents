@@ -8,8 +8,48 @@
 //     console.log("Latitude: " + position.coords.latitude);  
 //     console.log("Longitude: " + position.coords.longitude); 
 // }
+const hikeTrails = []
+const detailTrails = []
+const trailURL = 'https://www.hikingproject.com/data/get-trails?lat=40.0274&lon=-105.2519&maxDistance=10&key=https://www.hikingproject.com/data/get-trails?lat=40.0274&lon=-105.2519&maxDistance=10&key=200370659-aecb67928b596e09a75b40d671f08d13'
+
+$.ajax({
+  url: trailURL,
+  method: "GET"
+}).then(function(response){
+  console.log(response);
+  
+  for (let i = 0; i < response.trails.length; i++){
+    let popUp = { 
+    tName : response.trails[i].name,
+     tLength : response.trails[i].length,
+     tDifficulty : response.trails[i].difficulty,
+     tLong : response.trails[i].longitude,
+     tLat : response.trails[i].latitude,
+     tUrl: response.trails[i].url
+  }
+  hikeTrails.push(popUp);
+
+   let moreDetails = {
+    tName : response.trails[i].name,
+    tLength : response.trails[i].length,
+    tDifficulty : response.trails[i].difficulty,
+    tLong : response.trails[i].longitude,
+    tLat : response.trails[i].latitude,
+    tUrl: response.trails[i].url,
+    tSummary: response.trails[i].summary,
+    tConditionStatus: response.trails[i].conditionStatus,
+    tConditionDetails: response.trails[i].conditionDetails,
+    tConditionDate: response.trails[i].conditionDate
+
+   }
+   console.log(moreDetails)
+  detailTrails.push(moreDetails);
+
+  }
+});
 
 const campSites = [];
+const moreCampSites = [];
 const queryURL = 'https://developer.nps.gov/api/v1/campgrounds?total=611&fields=addresses&api_key=8y6XS6YXPcnGb4WJty65Kktjn72zJhZ4q4jkfzkz';
   
 console.log(queryURL);
@@ -19,19 +59,7 @@ $.ajax({
 }).then(function(response){
 // console.log(response);
 
-// function camps(list) {
-//     if (list === 0 || list === 1)
-//       console.log(1);
-//     else
-//       return (n * camps(n - 1));
-//   }
-//   camps(response);
-
-
-
     const currentItem = response;
-    
-
     
     for (let i = 0; i < currentItem.data.length; i++){
     const user ={
@@ -49,6 +77,24 @@ $.ajax({
                 state: currentItem.addresses[1].stateCode,
                 zip: currentItem.addresses[1].postalCode
             }, 
+          } 
+ 
+                  //pushing thisCampSite obj into campSites arry
+        campSites.push(thisCampSite);
+        // console.log(campSites);
+
+        let moreCamp = {
+
+          name : currentItem.data.name,
+          description: currentItem.description,
+          location:  currentItem.latLong,
+          addresses: {
+              line: currentItem.data.addresses[1].line1,
+              city: currentItem.addresses[1].city,
+              state: currentItem.addresses[1].stateCode,
+              zip: currentItem.addresses[1].postalCode
+          }, 
+
             amenities: {
                 showers: currentItem.amenities.showers,
                 toilets:  currentItem.amenities.toilets,
@@ -65,21 +111,22 @@ $.ajax({
                addInfo: currentItem.accessibility.additionalInfo
 
            }
-        }; 
+          }; 
+
+           moreCampSites.push(moreCamp)
+          //  console.log(moreCamp)
+        
     
-        //pushing thisCampSite obj into campSites arry
-        campSites.push(thisCampSite);
-        console.log(campSites);
+
     }else{
-        console.log('location needed')
+        // console.log('location needed')
     }
-    
-//     // let contact = response.data[i]. 
-//    console.log(response.data[i].name)
-}
+  }
+  
 
 });
-// });
+
+
 const key = "200367477-2b5b5ee846692e48eb30894d0d0c74ce";
 let max = "30";
 let pos = {lat: 44.427963, lng: -110.588455}

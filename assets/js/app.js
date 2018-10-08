@@ -10,7 +10,7 @@
 // }
 
 var campSite = [];
-const queryURL = 'https://developer.nps.gov/api/v1/campgrounds?total=611&fields=addresses&api_key=8y6XS6YXPcnGb4WJty65Kktjn72zJhZ4q4jkfzkz';
+const queryURL = 'https://ridb.recreation.gov/api/v1/organizations/128/facilities?activity=9&limit=200&apikey=38BDFB83F3714D9D9CBB807B847E4340';
 
 
 
@@ -47,15 +47,13 @@ const queryURL = 'https://developer.nps.gov/api/v1/campgrounds?total=611&fields=
 var thisCampsite = [];
 
 
-$.ajax({
-  url:queryURL,
-  method:"GET" 
-}).then(function(response){
-  for(let i=0; i<response.data.length; i++){
-    thisCampsite.push(response.data[i]);
-  }
-    console.log(thisCampsite);
-  });
+// $.ajax({
+//   url:queryURL,
+//   method:"GET" 
+// }).then(function(response){
+//     console.log(response);
+//     console.log(pos);
+//   });
 
 
 
@@ -63,43 +61,40 @@ const key = "200367477-2b5b5ee846692e48eb30894d0d0c74ce";
 let max = "30";
 let pos = {lat: 44.427963, lng: -110.588455}
 var trailsIcon;
-
+var runOnce = false;
 
 // Initialize Map
 function initMap() {
-
   var infoWindow = new google.maps.InfoWindow;
+
+  var youAreHere;
 
   var trails = [];
   var trailsPopulated = false;
-  var searchTrails = true;
   var trailsObject;
-  // var trailsIcon = {
-  //   path: 'M0-48c-9.8 0-17.7 7.8-17.7 17.4 0 15.5 17.7 30.6 17.7 30.6s17.7-15.4 17.7-30.6c0-9.6-7.9-17.4-17.7-17.4z',
-  //   fillColor: 'green',
-  //   fillOpacity: 1,
-  //   scale: .6,
-  //   strokeColor: 'white',
-  //   strokeWeight: 2
-  // }
   var trailsIcon = {
     url: "./assets/media/hiker.png",
-    // This marker is 20 pixels wide by 32 pixels high.
-    size: new google.maps.Size(20, 34),
-    // The origin for this image is (0, 0).
     origin: new google.maps.Point(0, 0),
-    // The anchor for this image is the base of the flagpole at (0, 32).
-    anchor: new google.maps.Point(0, 34)
+    anchor: new google.maps.Point(0, 30)
   };
-  var shape = {
-    coords: [1, 1, 1, 20, 32, 20, 32, 1],
+  var trShape = {
+    coords: [1, 1, 1, 30, 30, 30, 30, 1],
     type: 'poly'
   };
 
   var camps = [];
   var campsPopulated = false;
-  var searchCamps = true;
   var campsObject;
+  var campsIcon = {
+    url: "./assets/media/campfire.png",
+    origin: new google.maps.Point(0, 0),
+    anchor: new google.maps.Point(0, 30)
+  };
+  var cmpShape = {
+    coords: [1, 1, 1, 30, 30, 30, 30, 1],
+    type: 'poly'
+  };
+
 
   var styledMapType = new google.maps.StyledMapType(
     [
@@ -354,18 +349,16 @@ function initMap() {
     ]
   )
 
-
-
   // Try HTML5 geolocation.
   if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
-      pos = {
+      let pos = {
           lat: position.coords.latitude,
           lng: position.coords.longitude
           };
-      // // You are Here Marker
-      // youAreHere = new google.maps.Marker({position: pos, map: map});
-      // youAreHere.setMap(map);
+      // You are Here Marker
+      youAreHere = new google.maps.Marker({position: pos, map: map});
+      youAreHere.setMap(map);
       map.setCenter(pos);
       }, function() {
           handleLocationError(true, infoWindow, map.getCenter());
@@ -373,9 +366,16 @@ function initMap() {
   } else {
       // Browser doesn't support Geolocation
       handleLocationError(false, infoWindow, map.getCenter());
-      // youAreHere = new google.maps.Marker({position: pos, map: map});
+      youAreHere = new google.maps.Marker({position: pos, map: map});
   }     
 
+  function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+    infoWindow.setPosition(pos);
+    infoWindow.setContent(browserHasGeolocation ?
+                        'Error: The Geolocation service failed.' :
+                        'Error: Your browser doesn\'t support geolocation.');
+    infoWindow.open(map);
+  }
   // Initialize Map
   map = new google.maps.Map(document.getElementById('map'), {
       zoom: 9,
@@ -385,76 +385,70 @@ function initMap() {
       streetViewControl: false
   });
 
-  function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-    infoWindow.setPosition(pos);
-    infoWindow.setContent(browserHasGeolocation ?
-                        'Error: The Geolocation service failed.' :
-                        'Error: Your browser doesn\'t support geolocation.');
-    infoWindow.open(map);
-  }
-
   // Style Map
   map.mapTypes.set('styled_map', styledMapType);
   map.setMapTypeId('styled_map');
 
   // Reset view to current location.
-  $('#returnloc').on('click',function(){
-      map.setCenter(pos);
+  $('#returnBtn').on('click',function(){
+      map.setCenter(youAreHere.position);
   });
   
   //
-  map.addListener('center_changed'&&'idle',function(){
+  map.addListener('center_changed'&&'dragend',function(){
     pos = map.getCenter();
-    infoWindow.setPosition(pos);
-    infoWindow.setContent('Click populate to search here.');
-    infoWindow.open(map);
   });
-
 
 
   $('#populate').on('click',function(){
     
-    // let searchCamps = $('#campgrounds').is(':checked');
-    // if(searchCamps){
-    //   // Remove markers from map
-    //   if(campsPopulated) {
-    //     for (let i=0; i<camps.length; i++) {
-    //       camps[i].setMap(null);
-    //     }
-    //     // Reset length of marker array
-    //     camps = [];
-    //     campsPopulated = false;
-    //   }
-    //   //Set lat and lng as a number for queryURL
-    //   let lat = map.getCenter().lat();
-    //   let lng = map.getCenter().lng();
-    //   let queryURL = `https://api.nps.gov/api/v1/`;
-    //   $.ajax({
-    //       url: queryURL,
-    //       method: "GET"
-    //   }).then(function(res){
-    //       //Save GET data to object for Team use to display data
-    //       campsObject = res;
-    //       //Place markers for nearby trails
-    //       for (let i=0; i<res.trails.length; i++) {
-    //           let pos = ({lat: res.trails[i].latitude, lng: res.trails[i].longitude});
-    //           camps[i] = new google.maps.Marker({position: pos, map: map});
-    //           camps[i].setMap(map);
-    //       }
-    //   //set flag to track whether markers have been created once before.
-    //   campsPopulated = true;
-    //   });
-    // }
+    if($('#campgrounds').is(':checked')&&$('#campgrounds-d').is(':checked')){
+      // Remove markers from map
+      if(campsPopulated) {
+        for (let i=0; i<camps.length; i++) {
+          camps[i].setMap(null);
+        }
+        // Reset length of marker array
+        camps = [];
+        campsPopulated = false;
+      }
+      //Set lat and lng as a number for queryURL
+      let lat = Number(map.getCenter().lat());
+      let lng = Number(map.getCenter().lng());
+      console.log(lat);
+      let queryURL = `https://ridb.recreation.gov/api/v1/facilities?activity=9&longitude=${lng}&latitude=${lat}&radius=30&apikey=38BDFB83F3714D9D9CBB807B847E4340`;
+      $.ajax({
+          url: queryURL,
+          method: "GET"
+      }).then(function(res){
+          //Save GET data to object for Team use to display data
+          console.log(res);
+          campsObject = res.RECDATA;
+          //Place markers for nearby trails
+          for (let i=0; i<campsObject.length; i++) {
+              let pos = ({lat: campsObject[i].FacilityLatitude, lng: campsObject[i].FacilityLongitude});
+              camps[i] = new google.maps.Marker({
+                icon: campsIcon,
+                shape: cmpShape,
+                title: campsObject[i].FacilityName,
+                position: pos,
+                map: map
+              });
+              $(this).addClass(`campfire${i}`);
+              camps[i].setMap(map);
+          }
+      //set flag to track whether markers have been created once before.
+      campsPopulated = true;
+      });
+    }
     
-    searchTrails = $('#trails').is(':checked');
-    if(searchTrails){
+    if($('#trails').is(':checked')&&$('#trails-d').is(':checked')){
       // Remove markers from map
       if(trailsPopulated) {
           for (let i=0; i<trails.length; i++) {
               trails[i].setMap(null);
           }
           // Reset length of marker array
-          trails = [''];
           trailsPopulated = false;
       }
       //Set lat and lng as a number for queryURL
@@ -473,11 +467,12 @@ function initMap() {
               let pos = ({lat: trailsObject[i].latitude, lng: trailsObject[i].longitude});
               trails[i] = new google.maps.Marker({
                 icon: trailsIcon,
-                shape: shape,
+                shape: trShape,
                 title: trailsObject[i].name,
                 position: pos,
                 map: map
               });
+              $(this).addClass(`hiker${i}`);
               trails[i].setMap(map);
           }
       //set flag to track whether markers have been created once before.

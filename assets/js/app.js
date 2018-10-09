@@ -1,45 +1,72 @@
-<<<<<<< HEAD
+var lat;
+var lng;
+var trl = [];
+var trlDetails;
+if (navigator.geolocation)
+    {
+        navigator.geolocation.getCurrentPosition(function(position)
+        {
+            lat = position.coords.latitude;
+            lng = position.coords.longitude;
 
-const hikeTrails = []
-const detailTrails = []
-const trailURL = 'https://www.hikingproject.com/data/get-trails?lat=40.0274&lon=-105.2519&maxDistance=10&key=https://www.hikingproject.com/data/get-trails?lat=40.0274&lon=-105.2519&maxDistance=10&key=200370659-aecb67928b596e09a75b40d671f08d13'
+            console.log(lat, lng);
 
-$.ajax({
-  url: trailURL,
-  method: "GET"
-}).then(function(response){
-  // console.log(response);
-  
-  for (let i = 0; i < response.trails.length; i++){
-    let popUp = { 
-    tName : response.trails[i].name,
-     tLength : response.trails[i].length,
-     tDifficulty : response.trails[i].difficulty,
-     tLong : response.trails[i].longitude,
-     tLat : response.trails[i].latitude,
-     tUrl: response.trails[i].url
-  }
-  hikeTrails.push(popUp);
+          
 
-   let moreDetails = {
-    tName : response.trails[i].name,
-    tLength : response.trails[i].length,
-    tDifficulty : response.trails[i].difficulty,
-    tLong : response.trails[i].longitude,
-    tLat : response.trails[i].latitude,
-    tUrl: response.trails[i].url,
-    tSummary: response.trails[i].summary,
-    tConditionStatus: response.trails[i].conditionStatus,
-    tConditionDetails: response.trails[i].conditionDetails,
-    tConditionDate: response.trails[i].conditionDate
+            const queryURL = `https://www.hikingproject.com/data/get-trails?lat=${lat}&lon=${lng}&maxDistance=200&maxResults=500&key=200370663-d3970ccb58e379da62e51f7ec9dc994f`
 
-   }
-  //  console.log(moreDetails)
-  detailTrails.push(moreDetails);
-  // console.log(detailTrails)
+                    $.ajax({
+                                url: queryURL,
+                                method: "GET"
 
-  }
-});
+                             }).then(function(response)
+          {
+            
+                                    console.log(response);
+                                    console.log(response.trails[1]);                                           
+
+                                
+                                    
+
+                                    for (i=0; i < response.trails.length; i++)
+                                        {
+                                            trlDetails = {
+
+                                                            name: response.trails[i].name,
+                                                            id: response.trails[i].id,
+                                                            summary: response.trails[i].summary,
+                                                            location: response.trails[i].location,
+                                                            difficulty: response.trails[i].difficulty,
+                                                            longLat: {latitude: response.trails[i].latitude, longitude: response.trails[1].longitude},
+                                                            image: response.trails[i].imgSmall,
+                                                            website: response.trails[i].url,
+                                                            ConditionDate: response.trails[i].conditionDate,
+                                                            condition: response.trails[i].conditionStatus,
+                                                            ConditionDetails: response.trails[i].conditionDetails
+                                                            
+                                                        };
+
+                                           
+                                            trl.push(trlDetails);
+                                            console.log(trl);
+                                        }
+                                        
+                                        console.log(trl);
+
+                          $('#modal1-header').append(`<b>${trl[1].name}</b>`);
+                          $('#modal1-body').append(`<b><h5>Description</h5></b>${response.trails[1].summary}<br/><br/>`);
+                          $('#modal1-body').append(`<b><h5>Location</h5></b>${response.trails[1].location}<br/><br/>`);
+                          //$('#modal1-body').append(trl.longLat.latitude, trl.longLat.longitude);
+                          $('#card-body').append(`<b><h5>Difficulty</h5></b>${response.trails[1].difficulty}<br/><br/>`);
+                          $('#card-body').append(`<b><h5>Trail ID</h5></b>${response.trails[1].id}<br/><br/>`);
+                          $('#card-body').append(`<b><h5>Website</h5></b>${response.trails[1].website}<br/><br/>`);
+                          $('#card-body').append(`<img src ="${response.trails[1].image}" alt = "trail photo">`);
+                                                    
+          
+            });
+        });
+
+    }
 
 
 
@@ -91,8 +118,6 @@ let pos = {lat: 44.427963, lng: -110.588455}
 var trailsIcon;
 var runOnce = false;  
 
-=======
->>>>>>> master
 // Initialize Map
 function initMap() {
   // Global Variables  

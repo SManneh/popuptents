@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link href="https://fonts.googleapis.com/css?family=Wendy+One" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
@@ -42,7 +43,28 @@
                     <input class="form-check-input" type="checkbox" value="" id="cellPhone">
                     <label class="form-check-label" for="defaultCheck1">Cell Phone</label>
                 </div>
+                <h5 class="text-left">Hiking Trails</h5> 
+                <div class="form-check">
+                    <input class="form-check-input align-content-left" type="checkbox" id="easy" checked>
+                    <label class='form-check-label' type="checkbox" for="easy">Easy Trails</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input align-content-left" type="checkbox" id="medium" checked>
+                    <label class='form-check-label' type="checkbox" for="medium">Moderate Trails</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input align-content-left" type="checkbox" id="difficult" checked>
+                    <label class='form-check-label' type="checkbox" for="difficult">Difficult Trails</label>
+                </div>
+                <h5 class="text-left trailtitle">Hiking Trail Length</h5>
+                <div class="d-flex justify-content-left my-4">
+                    <span class="font-weight-bold indigo-text mr-2 minval">0 Miles</span>
+                        <input class="border-0 custom-range" type="range" data-slider-handle="custom" value="0" min="0" max="20" id="distance" />
+                        <input class="border-0 custom-range" type="range" data-slider-handle="custom" value="20" min="0" max="20" id="distancehigh" />           
+                    <span class="font-weight-bold indigo-text ml-2 maxval">20 Miles</span>
+                </div>
             </div>
+
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-secondary" id="save-changes">Save changes</button>
@@ -53,14 +75,15 @@
     <div class="container-fluid">
         <div class="row d-flex flex-wrap">
             <!--Header-->
-            <div class="header fixed-top">
-                <img class="col-sm-12" src="./assets/media/Logo.png" id="logo" max-width="100%" max-height="100%">
-                <div class="fixed-top d-flex justify-content-around" id="buttons">
+            <div class="header fixed-top col-lg-3">
+                <img class="col-sm-12 col-md-6 col-lg-12" src="./assets/media/Logo.png" id="logo" max-width="100%" max-height="100%">
+                <p class="d-none d-lg-block col-lg-12" id="tagline">"Find your happy place"</p>
+                <div class="fixed-top d-flex justify-content-around d-lg-none col-sm-12 col-md-6" id="buttons">
                     <button type="reset" class="btn btn-primary" id="cancel">Cancel</button>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#filter">Filter</button>
                     <button type="submit" class="btn btn-primary">Search</button>
                 </div>
-                <div class="accordion col-sm-12" id="search">
+                <div class="accordion col-sm-12 col-md-6 float-md-right d-lg-none" id="search">
                     <div class="card">
                         <div class="card-header" id="headingOne">
                             <h5 class="mb-0">
@@ -68,7 +91,9 @@
                                     <div class="input-group-prepend">
                                         <div class="input-group-text"><i class="fas fa-search-location"></i></div>
                                     </div>
-                                    <input type="text" id="locationinput" class="form-control" value="Current Location" data-target="#collapseOne" aria-controls="collapseOne">
+                                    <form id="form">
+                                    <input type="text" id="locationinput" class="form-control" placeholder="Current Location" data-target="#collapseOne" aria-controls="collapseOne">
+                                    </form>
                                 </div>
                             </h5>
                         </div>
@@ -79,18 +104,91 @@
                                 <div class="form-row">
                                     <div class="col">
                                         <input class="form-check-input" type="checkbox" id="campgrounds" checked>
-                                        <label class="form-check-label iconshow" for="campgrounds">Campgrounds</label>
+                                        <label class="form-check-label" for="campgrounds">Campgrounds</label>
                                     </div>
                                     <div class="col">
                                         <input class="form-check-input" type="checkbox" id="trails" checked>
-                                        <label class="form-check-label iconshow" for="trails">Hiking Trails</label>
+                                        <label class="form-check-label" for="trails">Hiking Trails</label>
                                     </div>   
-
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="filter d-sm-none d-lg-inline col-lg-3">
+                <form id= "form-d">
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fas fa-search-location"></i></div>
+                        </div>
+                        <input type="text" id="locationinput-d" class="form-control" placeholder="Current Location">
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <input class="form-check-input" type="checkbox" id="campgrounds-d" checked>
+                            <label class="form-check-label iconshow" for="campgrounds-d">Campgrounds</label>
+                        </div>
+                        <div class="col">
+                            <input class="form-check-input" type="checkbox" id="trails-d" checked>
+                            <label class="form-check-label iconshow" for="trails-d">Hiking Trails</label>
+                        </div>   
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <h3 class="col-lg-12 text-center">Filter Results</h3>
+                            <h4 class="col-lg-12 text-left">Campground Amenities</h4>
+                            <div class="form-row col-lg-12 filterform">
+                                <input class="form-check-input align-content-left" type="checkbox" id="showers-d">
+                                <label class='form-check-label' type="checkbox" for="showers-d">Showers</label>
+                            </div>
+                            <div class="form-row col-lg-12 filterform">
+                                <input class="form-check-input align-content-left" type="checkbox" id="toilets-d">
+                                <label class='form-check-label' type="checkbox" for="toilets-d">Toilets</label>
+                            </div>
+                            <div class="form-row col-lg-12 filterform">
+                                <input class="form-check-input align-content-left" type="checkbox" id="internet-d">
+                                <label class='form-check-label' type="checkbox" for="internet-d">Internet</label>
+                            </div>
+                            <div class="form-row col-lg-12 filterform">
+                                <input class="form-check-input align-content-left" type="checkbox" id="laundry-d">
+                                <label class='form-check-label' type="checkbox" for="laundry-d">Laundry</label>
+                            </div>
+                            <div class="form-row col-lg-12 filterform">
+                                <input class="form-check-input align-content-left" type="checkbox" id="cell-d">
+                                <label class='form-check-label' type="checkbox" for="cell-d">Cell Phone</label>
+                            </div>
+                        </div>     
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <h4 class="col-lg-12 text-left hikingtitle">Hiking Trails</h4> 
+                            <div class="form-row col-lg-12 filterform">
+                                <input class="form-check-input align-content-left" type="checkbox" id="easy-d" checked>
+                                <label class='form-check-label' type="checkbox" for="easy-d">Easy Trails</label>
+                            </div>
+                            <div class="form-row col-lg-12 filterform">
+                                <input class="form-check-input align-content-left" type="checkbox" id="medium-d" checked>
+                                <label class='form-check-label' type="checkbox" for="medium-d">Moderate Trails</label>
+                            </div>
+                            <div class="form-row col-lg-12 filterform">
+                                <input class="form-check-input align-content-left" type="checkbox" id="difficult-d" checked>
+                                <label class='form-check-label' type="checkbox" for="difficult-d">Difficult Trails</label>
+                            </div>
+                            <h5 class="col-lg-12 text-left">Hiking Trail Length</h5>
+                            <div class="d-flex justify-content-left my-4">
+                                <span class="font-weight-bold indigo-text mr-2 minval-d">0 Miles</span>
+                                    <input class="border-0 custom-range" type="range" data-slider-handle="custom" value="0" min="0" max="20" id="distance-d" />
+                                    <input class="border-0 custom-range" type="range" data-slider-handle="custom" value="20" min="0" max="20" id="distancehigh-d" />           
+                                <span class="font-weight-bold indigo-text ml-2 maxval-d">20 Miles</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row desktopbuttons">
+                        <button type="reset" class="btn btn-third reset-d" data-dismiss="form">Reset</button>
+                        <button type="button" class="btn btn-third" id="save-changes-d">Save changes</button>
+                    </div>
+                </form>
             </div>
             <!--Div to display the map -->
 
@@ -102,7 +200,7 @@
             </div>
             <!--Button to return to default location-->
             <div class="position-absolute" id="returnloc">
-                <button class="btn-secondary"><i class="fas fa-location-arrow"></i></button>
+                <button class="btn-secondary" id="returnBtn"><i class="fas fa-location-arrow"></i></button>
                 <button class="btn btn-secondary" id="populate">Populate Locations</button>
             </div>
                
@@ -121,7 +219,7 @@
             </div>
 
         </div>
-        <div class="footer fixed-bottom">
+        <div class="footer fixed-bottom col-lg-3">
             <p class="copyright">2018 <i class="fas fa-copyright"></i> happycampr, inc.</p>
         </div>
     </div>

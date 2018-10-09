@@ -4,6 +4,7 @@
     z-index:1000;
 }
 
+
 .card-header{
     background-color:#0C8E56;
     border:none;
@@ -30,6 +31,7 @@
 .card{
     background-color:#0C8E56;
     width:100%;
+    border:none;
 }
 
 .col{
@@ -40,6 +42,25 @@
 .iconshow{
     color:#FFFAED;
 }
+
+
+h3{
+    font-size:1.65em;
+    margin-top:3%;
+    margin-bottom:3%;
+}
+
+
+h4{
+    margin-top:5%;
+    font-size:1.25em;
+}
+
+h5{
+    margin-top:2%;
+    font-size:1em;
+}
+/**************************** Cancel Search Filter button stylings *****************************/
 #buttons{
     width:100vw;
     opacity: 0;
@@ -63,12 +84,79 @@
     border-color: #EE4266;
 }
 
+/************************************* Start of Modal Stylings *************************************/
+
+.custom-range{
+    width:40%;
+    margin-left:20%;
+    pointer-events:none;
+ }
+ .custom-range::-webkit-slider-thumb {
+    background: #0C8E56;
+    pointer-events:auto;
+ }
+    
+ .custom-range::-webkit-slider-thumb:hover {
+    background: #0C8E56;
+ }
+
+ .custom-range:active::-webkit-slider-thumb {
+    background: #EE4266;
+ }
+    
+ .custom-range::-moz-range-thumb {
+    background: #EE4266;
+ }
+     
+ .custom-range::-moz-range-thumb:hover {
+    background: #EE4266;
+ }
+     
+ .custom-range:active::-moz-range-thumb {
+    background: #EE4266;
+ }
+
+ #distancehigh::-webkit-slider-runnable-track{
+    background-color:transparent;
+    pointer-events:none;    
+ }
+
+
+ #distancehigh{
+    margin-left: -40%;
+ }
+
+ .minval{
+    padding-right:1%;
+    position:absolute;
+    text-align:right;
+ }
+ .trailtitle{
+    margin:5% 0%;
+ }
+
+h5{
+    padding:0;
+}
+
+.modal-header{
+    background-color:#FFFAED;
+}
+
+.modal-body{
+    background-color:#FFFAED;
+}
+
+.modal-footer{
+    background-color:#FFFAED;
+}
+/**************************************** End of Modal Stylings ************************************/
 
 
 #map{
     height:80vh;
     width:100vw;
-    margin-top:15.75vh;
+    margin-top:15vh;
 }
 
 #returnloc{
@@ -121,4 +209,183 @@
     padding-bottom: 2%;
     margin-bottom: 0%;
 }
+
+
+
+/************************************************ End of Footer Styling **************************************************************/
+
+@media only screen and (min-width: 768px) {
+    .header{
+        height:12vh;
+    }
+    
+    #map{
+        height:90vh;
+        margin-top: 8.75vh;
+    }
+    #logo{
+        margin-top:2%;
+    }
+
+    #search{
+        margin-top: 4%;
+    }
+
+    .accordian{
+       z-index:5;
+        
+    }
+    
+    #buttons{
+        margin-top: 2%;
+    }
+}
+
+@media only screen and (min-width: 992px){
+    .filter{
+        height: 85vh;
+        background-color:#FFFAED;
+        z-index:4;
+        margin-top:15vh;
+    }
+    form{
+        padding-top: 2vh;
+    }
+    .header{
+        height:15vh;
+    }
+
+    .iconshow{
+        color:#270632;
+    }
+
+    #tagline{
+        color: #FFFAED;
+        font-family: 'Wendy One';
+        text-align:center;
+        font-size: 1.5em;
+    }
+    #logo{
+        height:10vh;
+        width:auto;
+        margin-top:0;
+    }
+
+    #map{
+        height: 100vh;
+        margin-left: 25vw;
+        width: 75vw;
+        margin-top: 0;
+    }
+
+    #returnloc{
+        bottom: 3%;
+        left: 27%;
+        z-index: 5;
+    }
+
+    h5{
+        padding-top:3%;
+    }
+
+    h3{
+        margin-top: 14%;
+        margin-bottom: 8%;
+        margin-left: -5%;
+    }
+    .filterform{
+        padding-left:11%;
+    }
+
+    .hikingtitle{
+        margin-top:3%;
+    }
+
+    .btn-third{
+        background-color: #FFFAED;
+        color:#270632;
+        margin-left:4%;
+        margin-top:5%;
+    }
+
+    .btn-third:hover {
+        background-color: #EE4266;
+        border-color: #EE4266;
+    }
+    
+    .btn-third:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
+        background-color: #EE4266;
+        border-color: #EE4266;
+    }
+
+    .custom-range{
+       width:40%;
+       margin-left:20%;
+       z-index:1;
+       pointer-events:none;
+    }
+    .custom-range::-webkit-slider-thumb {
+        background: #0C8E56;
+        z-index:5;
+        pointer-events:auto;
+    }
+       
+    .custom-range::-webkit-slider-thumb:hover {
+        background: #0C8E56;
+        z-index:3;
+    }
+   
+    .custom-range:active::-webkit-slider-thumb {
+        background: #EE4266;
+        z-index:3;
+    }
+       
+    .custom-range::-moz-range-thumb {
+        background: #EE4266;
+        z-index:3;
+    }
+        
+    .custom-range::-moz-range-thumb:hover {
+        background: #EE4266;
+        z-index:3;
+    }
+        
+    .custom-range:active::-moz-range-thumb {
+        background: #EE4266;
+        z-index:3;
+    }
+
+    #distancehigh-d::-webkit-slider-runnable-track{
+        background-color:transparent;
+        pointer-events:none;    
+    }
+
+
+    #distancehigh-d{
+        margin-left: -40%;
+        z-index:1;
+    }
+
+    .minval-d{
+        padding-right:1%;
+        position:absolute;
+        text-align:right;
+    }
+    .trailtitle{
+        margin:5% 4%;
+    }
+    
+    .desktopbuttons{
+        margin-top: 0vh;
+        margin-left: 8%;
+    }
+    
+    .mb-4, .my-4 {
+        margin-bottom: 1.5rem!important;
+        padding-left: 3%;
+    }
+}
+
+
+    
 

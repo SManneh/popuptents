@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 const hikeTrails = []
 const detailTrails = []
@@ -90,11 +91,17 @@ let pos = {lat: 44.427963, lng: -110.588455}
 var trailsIcon;
 var runOnce = false;  
 
+=======
+>>>>>>> master
 // Initialize Map
 function initMap() {
-  var infoWindow = new google.maps.InfoWindow;
+  // Global Variables  
+  // Default Position (Yellowstone)
+  let pos = {lat: 44.427963, lng: -110.588455};
 
+  var infoWindow = new google.maps.InfoWindow;
   var youAreHere;
+
   var trailDifficulty = [true, true, true];
   var trailLow = 0;
   var trailHigh = 20;
@@ -123,8 +130,11 @@ function initMap() {
     coords: [1, 1, 1, 30, 30, 30, 30, 1],
     type: 'poly'
   };
+  var activityList=[];
+  var counter=0;
+  var counter2=0;
 
-
+  //Map Styling Code
   var styledMapType = new google.maps.StyledMapType(
     [
       {
@@ -378,7 +388,7 @@ function initMap() {
     ]
   )
 
-  // Try HTML5 geolocation.
+  // HTML5 geolocation.
   if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
       let pos = {
@@ -397,7 +407,6 @@ function initMap() {
       handleLocationError(false, infoWindow, map.getCenter());
       youAreHere = new google.maps.Marker({position: pos, map: map});
   }     
-
   function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     infoWindow.setPosition(pos);
     infoWindow.setContent(browserHasGeolocation ?
@@ -405,6 +414,7 @@ function initMap() {
                         'Error: Your browser doesn\'t support geolocation.');
     infoWindow.open(map);
   }
+
   // Initialize Map
   map = new google.maps.Map(document.getElementById('map'), {
       zoom: 9,
@@ -428,13 +438,15 @@ function initMap() {
     pos = map.getCenter();
   });
 
+  // Desktop View Submit for typed address location.
   $("#form-d").submit(function(event){
     event.preventDefault();
     let address = $("#locationinput-d").val().trim();
     queryURL=`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyCyHsn9dQoGsrijNRNtLiPTaILSC3Xkj3g`;
     searchByAddress(queryURL);
     }); 
-  
+
+   // Mobile View Submit for typed address location.
   $("#form").submit(function(event){  
     event.preventDefault();
     let address = $("#locationinput").val().trim();
@@ -442,10 +454,11 @@ function initMap() {
     searchByAddress(queryURL);
   });
   
-  //Filter save changes.
+  // Save Filter Data for use in displaying markers (Mobile).
   $("#save-changes").click(function(event){
     event.preventDefault;
     trailDifficulty = [];
+    activityList = [];
     if($("#easy").is(':checked')) {
       trailDifficulty.push(true);
     } else trailDifficulty.push(false);
@@ -455,28 +468,66 @@ function initMap() {
     if($("#difficult").is(':checked')) {
       trailDifficulty.push(true);
     } else trailDifficulty.push(false);
-    console.log(trailDifficulty);
     trailLow = parseInt($('#distance').val());
     trailHigh = parseInt($('#distancehigh').val());
-    });
+    if($('#swimming').is(':checked')) {
+      activityList.push(34);
+    }
+    if($('#biking').is(':checked')) {
+      activityList.push(5);
+    }
+    if($('#fishing').is(':checked')) {
+      activityList.push(11);
+    }
+    if($('#lodging').is(':checked')) {
+      activityList.push(44);
+    }
+    if($('#horseback').is(':checked')) {
+      activityList.push(15);
+    }
+    if($('#picnic').is(':checked')) {
+      activityList.push(20);
+    }
+  });
   
-    $("#save-changes-d").click(function(event){
-      event.preventDefault;
-      trailDifficulty = [];
-      if($("#easy-d").is(':checked')) {
-        trailDifficulty.push(true);
-      } else trailDifficulty.push(false);
-      if($("#medium-d").is(':checked')) {
-        trailDifficulty.push(true);
-      } else trailDifficulty.push(false);
-      if($("#difficult-d").is(':checked')) {
-        trailDifficulty.push(true);
-      } else trailDifficulty.push(false);
-      console.log(trailDifficulty);
-      trailLow = parseInt($('#distance-d').val());
-      trailHigh = parseInt($('#distancehigh-d').val());
-      });
+  // Save Filter Data for use in displaying markers (Desktop).
+  $("#save-changes-d").click(function(event){
+    event.preventDefault;
+    trailDifficulty = [];
+    activityList = [];
+    if($("#easy-d").is(':checked')) {
+      trailDifficulty.push(true);
+    } else trailDifficulty.push(false);
+    if($("#medium-d").is(':checked')) {
+      trailDifficulty.push(true);
+    } else trailDifficulty.push(false);
+    if($("#difficult-d").is(':checked')) {
+      trailDifficulty.push(true);
+    } else trailDifficulty.push(false);
+    console.log(trailDifficulty);
+    trailLow = parseInt($('#distance-d').val());
+    trailHigh = parseInt($('#distancehigh-d').val());
+    if($('#swimming-d').is(':checked')) {
+      activityList.push(34);
+    }
+    if($('#biking-d').is(':checked')) {
+      activityList.push(5);
+    }
+    if($('#fishing-d').is(':checked')) {
+      activityList.push(11);
+    }
+    if($('#lodging-d').is(':checked')) {
+      activityList.push(44);
+    }
+    if($('#horseback-d').is(':checked')) {
+      activityList.push(15);
+    }
+    if($('#picnic-d').is(':checked')) {
+      activityList.push(20);
+    }
+  });
   
+  // Ajax function to obtain lat/lng of the address provided.
   function searchByAddress(queryURL){
     $.ajax({
       url:queryURL,
@@ -487,10 +538,11 @@ function initMap() {
     });
   }
 
-
+  //Function when the Populate button is clicked.
   $('#populate').on('click',function(){
-    
-    function placeMarkers(i, counter){
+
+    //Function to place Trail Markers
+    function placeTrMarkers(i, count){
       let pos = ({lat: trailsObject[i].latitude, lng: trailsObject[i].longitude});
       trails.push(new google.maps.Marker({
         icon: trailsIcon,
@@ -500,14 +552,32 @@ function initMap() {
         map: map
       }));
       //This is the marker name.
-      $(this).addClass(`hiker${i}`);
-      trails[counter].setMap(map);
-      console.log(trails[counter]);
-      return counter++;
+      $(this).addClass(`hiker`);
+      $(this).attr('id',i);
+      trails[count].setMap(map);
+      console.log(trails[count]);
+      return count++;
     }
 
+    // Function to place Camping Markers
+    function placeCaMarkers(i, count){
+        let pos = ({lat: campsObject[i].FacilityLatitude, lng: campsObject[i].FacilityLongitude});
+        camps.push(new google.maps.Marker({
+          icon: campsIcon,
+          shape: cmpShape,
+          title: campsObject[i].FacilityName,
+          position: pos,
+          map: map
+        }));
+        // This is the marker name.
+        $(this).addClass(`campfire${i}`);
+        camps[count].setMap(map);
+        return count++;
+      }
+    
+    // If campgrounds are being included in search...
     if($('#campgrounds').is(':checked')&&$('#campgrounds-d').is(':checked')){
-      // Remove markers from map
+      // If markers are already placed, remove those markers from map
       if(campsPopulated) {
         for (let i=0; i<camps.length; i++) {
           camps[i].setMap(null);
@@ -516,33 +586,42 @@ function initMap() {
         camps = [];
         campsPopulated = false;
       }
-      //Set lat and lng as a number for queryURL
+      // Obtain lat and lng as a number (instead of LatLng literal used by Google Maps) for queryURL link
       let lat = Number(map.getCenter().lat());
       let lng = Number(map.getCenter().lng());
-      console.log(lat);
-      let queryURL = `https://ridb.recreation.gov/api/v1/facilities?activity=9&longitude=${lng}&latitude=${lat}&radius=30&apikey=38BDFB83F3714D9D9CBB807B847E4340`;
+      let queryURL = `https://ridb.recreation.gov/api/v1/facilities?full&longitude=${lng}&latitude=${lat}&radius=30&apikey=38BDFB83F3714D9D9CBB807B847E4340&activity=9`;
       $.ajax({
           url: queryURL,
           method: "GET"
       }).then(function(res){
-          //Save GET data to object for Team use to display data
-          console.log(res);
+          // Save GET data to object for Team use to display data
           campsObject = res.RECDATA;
-          //Place markers for nearby trails
-          for (let i=0; i<campsObject.length; i++) {
-              let pos = ({lat: campsObject[i].FacilityLatitude, lng: campsObject[i].FacilityLongitude});
-              camps[i] = new google.maps.Marker({
-                icon: campsIcon,
-                shape: cmpShape,
-                title: campsObject[i].FacilityName,
-                position: pos,
-                map: map
-              });
-              //This is the marker name.
-              $(this).addClass(`campfire${i}`);
-              camps[i].setMap(map);
+          // Filter Activites
+          counter2 = 0;
+          for(let i=0; i<campsObject.length; i++) {
+            check=0;
+            if(activityList){
+              for(let j=0; j<campsObject[i].ACTIVITY.length; j++){
+                for(let k=0; k<activityList.length; k++) {
+                  // Check if there are any activities selected.
+                  if(activityList[k]) {
+                    // Compares activities selected with activities offered.
+                    if(parseInt(campsObject[i].ACTIVITY[j].ActivityID) === activityList[k]) {
+                      check++;
+                      // Displays marker if all activities required match what is offered.
+                      if(check === activityList.length){
+                        // Place markers for nearby trails
+                        console.log(campsObject[i]);
+                        placeCaMarkers(i, counter2);
+                      }
+                    } 
+                  }
+                }   
+              }
+            // Place markers if no activites selected.
+            }else placeCaMarkers(i, counter2); 
           }
-      //set flag to track whether markers have been created once before.
+      // Set flag to indicate markers have been placed.
       campsPopulated = true;
       });
     } else {
@@ -554,6 +633,7 @@ function initMap() {
       campsPopulated = false;
     }
     
+    // If trails are being included in search...
     if($('#trails').is(':checked')&&$('#trails-d').is(':checked')){
       // Remove markers from map
       if(trailsPopulated) {
@@ -574,35 +654,31 @@ function initMap() {
       }).then(function(res){
         //Filtering difficulty and length for trails.
         trailsObject = res.trails;
-        let counter = 0;
-          for(let i = 0; i<trailsObject.length; i++) {
-            let check = ["green", "blue", "black"];
-            for(let j = 0; j<trailDifficulty.length; j++) {
-              if(trailDifficulty[j]) {
-                if((trailsObject[i].difficulty.indexOf(check[j]) === 0) && (parseInt(trailsObject[i].length)>=trailLow && parseInt(trailsObject[i].length) <= trailHigh)) {
-                  //Place markers for nearby trails
-                  placeMarkers(i, counter);
-                } 
-              }
+        counter = 0;
+        for(let i = 0; i<trailsObject.length; i++) {
+          let check = ["green", "blue", "black"];
+          for(let j = 0; j<trailDifficulty.length; j++) {
+            if(trailDifficulty[j]) {
+              if((trailsObject[i].difficulty.indexOf(check[j]) === 0) && (parseInt(trailsObject[i].length)>=trailLow && parseInt(trailsObject[i].length) <= trailHigh)) {
+                //Place markers for nearby trails
+                placeTrMarkers(i, counter);
+              } 
             }
           }
+        }
       //set flag to track whether markers have been created once before.
       trailsPopulated = true;
       trailsObject = [];
       });
     } else {
-    for (let i=0; i<trails.length; i++) {
-      trails[i].setMap(null);
-    }
-  
-    // Reset length of marker array
-    trailsPopulated = false;
+      for (let i=0; i<trails.length; i++) {
+        trails[i].setMap(null);
+      }
+      // Reset length of marker array
+      trailsPopulated = false;
     } 
   });
-}
-
-
-
+} // End of MapInit Function
 
 //Animate the cancel, filter, search buttons to appear upon input focus
 $('#locationinput').on('focus', function(){
@@ -695,8 +771,6 @@ $('.reset-d').on('click', function(){
   $('.minval-d').text("0 Miles");
   $('.maxval-d').text("20 Miles");
 });
-
-
 
 
 

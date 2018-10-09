@@ -1,13 +1,4 @@
-// $("#popup-view").on('click', function(event){ 
-  
-//   event.preventDefault();
-//   const stock = $(this).val();
-// navigator.geolocation.getCurrentPosition(showPosition);
 
-// function showPosition(position){
-//     console.log("Latitude: " + position.coords.latitude);  
-//     console.log("Longitude: " + position.coords.longitude); 
-// }
 const hikeTrails = []
 const detailTrails = []
 const trailURL = 'https://www.hikingproject.com/data/get-trails?lat=40.0274&lon=-105.2519&maxDistance=10&key=https://www.hikingproject.com/data/get-trails?lat=40.0274&lon=-105.2519&maxDistance=10&key=200370659-aecb67928b596e09a75b40d671f08d13'
@@ -16,7 +7,7 @@ $.ajax({
   url: trailURL,
   method: "GET"
 }).then(function(response){
-  console.log(response);
+  // console.log(response);
   
   for (let i = 0; i < response.trails.length; i++){
     let popUp = { 
@@ -42,8 +33,9 @@ $.ajax({
     tConditionDate: response.trails[i].conditionDate
 
    }
-   console.log(moreDetails)
+  //  console.log(moreDetails)
   detailTrails.push(moreDetails);
+  console.log(detailTrails)
 
   }
 });

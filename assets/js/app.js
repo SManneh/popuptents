@@ -1,14 +1,12 @@
-var campSite = [];
-var thisCampsite = [];
-let pos = {lat: 44.427963, lng: -110.588455}
-var trailsIcon;
-var runOnce = false;  
-
 // Initialize Map
 function initMap() {
-  var infoWindow = new google.maps.InfoWindow;
+  // Global Variables  
+  // Default Position (Yellowstone)
+  let pos = {lat: 44.427963, lng: -110.588455};
 
+  var infoWindow = new google.maps.InfoWindow;
   var youAreHere;
+
   var trailDifficulty = [true, true, true];
   var trailLow = 0;
   var trailHigh = 20;
@@ -41,7 +39,7 @@ function initMap() {
   var counter=0;
   var counter2=0;
 
-
+  //Map Styling Code
   var styledMapType = new google.maps.StyledMapType(
     [
       {
@@ -295,7 +293,7 @@ function initMap() {
     ]
   )
 
-  // Try HTML5 geolocation.
+  // HTML5 geolocation.
   if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
       let pos = {
@@ -314,7 +312,6 @@ function initMap() {
       handleLocationError(false, infoWindow, map.getCenter());
       youAreHere = new google.maps.Marker({position: pos, map: map});
   }     
-
   function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     infoWindow.setPosition(pos);
     infoWindow.setContent(browserHasGeolocation ?
@@ -322,6 +319,7 @@ function initMap() {
                         'Error: Your browser doesn\'t support geolocation.');
     infoWindow.open(map);
   }
+
   // Initialize Map
   map = new google.maps.Map(document.getElementById('map'), {
       zoom: 9,
@@ -345,13 +343,15 @@ function initMap() {
     pos = map.getCenter();
   });
 
+  // Desktop View Submit for typed address location.
   $("#form-d").submit(function(event){
     event.preventDefault();
     let address = $("#locationinput-d").val().trim();
     queryURL=`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyCyHsn9dQoGsrijNRNtLiPTaILSC3Xkj3g`;
     searchByAddress(queryURL);
     }); 
-  
+
+   // Mobile View Submit for typed address location.
   $("#form").submit(function(event){  
     event.preventDefault();
     let address = $("#locationinput").val().trim();
@@ -359,7 +359,7 @@ function initMap() {
     searchByAddress(queryURL);
   });
   
-  //Filter save changes.
+  // Save Filter Data for use in displaying markers (Mobile).
   $("#save-changes").click(function(event){
     event.preventDefault;
     trailDifficulty = [];
@@ -373,7 +373,6 @@ function initMap() {
     if($("#difficult").is(':checked')) {
       trailDifficulty.push(true);
     } else trailDifficulty.push(false);
-    console.log(trailDifficulty);
     trailLow = parseInt($('#distance').val());
     trailHigh = parseInt($('#distancehigh').val());
     if($('#swimming').is(':checked')) {
@@ -394,46 +393,46 @@ function initMap() {
     if($('#picnic').is(':checked')) {
       activityList.push(20);
     }
-    console.log(activityList);
-    });
+  });
   
-    $("#save-changes-d").click(function(event){
-      event.preventDefault;
-      trailDifficulty = [];
-      activityList = [];
-      if($("#easy-d").is(':checked')) {
-        trailDifficulty.push(true);
-      } else trailDifficulty.push(false);
-      if($("#medium-d").is(':checked')) {
-        trailDifficulty.push(true);
-      } else trailDifficulty.push(false);
-      if($("#difficult-d").is(':checked')) {
-        trailDifficulty.push(true);
-      } else trailDifficulty.push(false);
-      console.log(trailDifficulty);
-      trailLow = parseInt($('#distance-d').val());
-      trailHigh = parseInt($('#distancehigh-d').val());
-      if($('#swimming-d').is(':checked')) {
-        activityList.push(34);
-      }
-      if($('#biking-d').is(':checked')) {
-        activityList.push(5);
-      }
-      if($('#fishing-d').is(':checked')) {
-        activityList.push(11);
-      }
-      if($('#lodging-d').is(':checked')) {
-        activityList.push(44);
-      }
-      if($('#horseback-d').is(':checked')) {
-        activityList.push(15);
-      }
-      if($('#picnic-d').is(':checked')) {
-        activityList.push(20);
-      }
-      console.log(activityList);
-      });
+  // Save Filter Data for use in displaying markers (Desktop).
+  $("#save-changes-d").click(function(event){
+    event.preventDefault;
+    trailDifficulty = [];
+    activityList = [];
+    if($("#easy-d").is(':checked')) {
+      trailDifficulty.push(true);
+    } else trailDifficulty.push(false);
+    if($("#medium-d").is(':checked')) {
+      trailDifficulty.push(true);
+    } else trailDifficulty.push(false);
+    if($("#difficult-d").is(':checked')) {
+      trailDifficulty.push(true);
+    } else trailDifficulty.push(false);
+    console.log(trailDifficulty);
+    trailLow = parseInt($('#distance-d').val());
+    trailHigh = parseInt($('#distancehigh-d').val());
+    if($('#swimming-d').is(':checked')) {
+      activityList.push(34);
+    }
+    if($('#biking-d').is(':checked')) {
+      activityList.push(5);
+    }
+    if($('#fishing-d').is(':checked')) {
+      activityList.push(11);
+    }
+    if($('#lodging-d').is(':checked')) {
+      activityList.push(44);
+    }
+    if($('#horseback-d').is(':checked')) {
+      activityList.push(15);
+    }
+    if($('#picnic-d').is(':checked')) {
+      activityList.push(20);
+    }
+  });
   
+  // Ajax function to obtain lat/lng of the address provided.
   function searchByAddress(queryURL){
     $.ajax({
       url:queryURL,
@@ -444,9 +443,10 @@ function initMap() {
     });
   }
 
-
+  //Function when the Populate button is clicked.
   $('#populate').on('click',function(){
-    
+
+    //Function to place Trail Markers
     function placeTrMarkers(i, count){
       let pos = ({lat: trailsObject[i].latitude, lng: trailsObject[i].longitude});
       trails.push(new google.maps.Marker({
@@ -457,12 +457,14 @@ function initMap() {
         map: map
       }));
       //This is the marker name.
-      $(this).addClass(`hiker${i}`);
+      $(this).addClass(`hiker`);
+      $(this).attr('id',i);
       trails[count].setMap(map);
       console.log(trails[count]);
       return count++;
     }
 
+    // Function to place Camping Markers
     function placeCaMarkers(i, count){
         let pos = ({lat: campsObject[i].FacilityLatitude, lng: campsObject[i].FacilityLongitude});
         camps.push(new google.maps.Marker({
@@ -472,14 +474,15 @@ function initMap() {
           position: pos,
           map: map
         }));
-        //This is the marker name.
+        // This is the marker name.
         $(this).addClass(`campfire${i}`);
         camps[count].setMap(map);
         return count++;
       }
-
+    
+    // If campgrounds are being included in search...
     if($('#campgrounds').is(':checked')&&$('#campgrounds-d').is(':checked')){
-      // Remove markers from map
+      // If markers are already placed, remove those markers from map
       if(campsPopulated) {
         for (let i=0; i<camps.length; i++) {
           camps[i].setMap(null);
@@ -488,29 +491,31 @@ function initMap() {
         camps = [];
         campsPopulated = false;
       }
-      //Set lat and lng as a number for queryURL
+      // Obtain lat and lng as a number (instead of LatLng literal used by Google Maps) for queryURL link
       let lat = Number(map.getCenter().lat());
       let lng = Number(map.getCenter().lng());
-      console.log(lat);
       let queryURL = `https://ridb.recreation.gov/api/v1/facilities?full&longitude=${lng}&latitude=${lat}&radius=30&apikey=38BDFB83F3714D9D9CBB807B847E4340&activity=9`;
       $.ajax({
           url: queryURL,
           method: "GET"
       }).then(function(res){
-          //Save GET data to object for Team use to display data
+          // Save GET data to object for Team use to display data
           campsObject = res.RECDATA;
-          //Filter Activites
+          // Filter Activites
           counter2 = 0;
           for(let i=0; i<campsObject.length; i++) {
             check=0;
             if(activityList){
               for(let j=0; j<campsObject[i].ACTIVITY.length; j++){
                 for(let k=0; k<activityList.length; k++) {
+                  // Check if there are any activities selected.
                   if(activityList[k]) {
+                    // Compares activities selected with activities offered.
                     if(parseInt(campsObject[i].ACTIVITY[j].ActivityID) === activityList[k]) {
                       check++;
+                      // Displays marker if all activities required match what is offered.
                       if(check === activityList.length){
-                        //Place markers for nearby trails
+                        // Place markers for nearby trails
                         console.log(campsObject[i]);
                         placeCaMarkers(i, counter2);
                       }
@@ -518,9 +523,10 @@ function initMap() {
                   }
                 }   
               }
+            // Place markers if no activites selected.
             }else placeCaMarkers(i, counter2); 
           }
-      //set flag to track whether markers have been created once before.
+      // Set flag to indicate markers have been placed.
       campsPopulated = true;
       });
     } else {
@@ -532,6 +538,7 @@ function initMap() {
       campsPopulated = false;
     }
     
+    // If trails are being included in search...
     if($('#trails').is(':checked')&&$('#trails-d').is(':checked')){
       // Remove markers from map
       if(trailsPopulated) {
@@ -569,27 +576,14 @@ function initMap() {
       trailsObject = [];
       });
     } else {
-    for (let i=0; i<trails.length; i++) {
-      trails[i].setMap(null);
-    }
-  
-    // Reset length of marker array
-    trailsPopulated = false;
+      for (let i=0; i<trails.length; i++) {
+        trails[i].setMap(null);
+      }
+      // Reset length of marker array
+      trailsPopulated = false;
     } 
   });
-
-  // let queryURL = `https://ridb.recreation.gov/api/v1/facilities/${campsObject[].FacilityID}?full&apikey=38BDFB83F3714D9D9CBB807B847E4340`;
-  //         $.ajax({
-  //           url: queryURL,
-  //           method: 'GET'
-  //         }).then(function(response){
-  //           console.log(response);
-  //         });
-  
-}
-
-
-
+} // End of MapInit Function
 
 //Animate the cancel, filter, search buttons to appear upon input focus
 $('#locationinput').on('focus', function(){
@@ -682,8 +676,6 @@ $('.reset-d').on('click', function(){
   $('.minval-d').text("0 Miles");
   $('.maxval-d').text("20 Miles");
 });
-
-
 
 
 

@@ -65,55 +65,76 @@ if (navigator.geolocation) {
 }
 
 
-if (navigator.geolocation) {
-  navigator.geolocation.getCurrentPosition(function (position) {
-    lat = position.coords.latitude;
-    lng = position.coords.longitude;
+// if (navigator.geolocation) {
+//   navigator.geolocation.getCurrentPosition(function (position) {
+//     lat = position.coords.latitude;
+//     lng = position.coords.longitude;
 
-    console.log(lat, lng);
+//     console.log(lat, lng);
 
-var campSite = [];
-const queryURL = `https://ridb.recreation.gov/api/v1/facilities?activity=9&longitude=${lng}&latitude=${lat}&radius=30&apikey=38BDFB83F3714D9D9CBB807B847E4340`;
 
+const campSites = [];
+const queryURL = 'https://developer.nps.gov/api/v1/campgrounds?total=611&fields=addresses&api_key=8y6XS6YXPcnGb4WJty65Kktjn72zJhZ4q4jkfzkz';
+
+  
+console.log(queryURL);
 $.ajax({
-  url: queryURL,
-  method: "GET"
+  url:queryURL,
+  method:"GET" 
 }).then(function(response){
-  console.log(response);
+// console.log(response);
+
+    const currentItem = response;
+    
+        let thisCampSite = {
+            name : currentItem.data.name,
+            description: currentItem.description,
+            location:  currentItem.latLong,
+            addresses: {
+                line: currentItem.data.addresses[1].line1,
+                city: currentItem.addresses[1].city,
+                state: currentItem.addresses[1].stateCode,
+                zip: currentItem.addresses[1].postalCode
+            }, 
+
+          name : currentItem.data.name,
+          description: currentItem.description,
+          location:  currentItem.latLong,
+          addresses: {
+              line: currentItem.data.addresses[1].line1,
+              city: currentItem.addresses[1].city,
+              state: currentItem.addresses[1].stateCode,
+              zip: currentItem.addresses[1].postalCode
+          }, 
+
+            amenities: {
+                showers: currentItem.amenities.showers,
+                toilets:  currentItem.amenities.toilets,
+                internetNetwork: currentItem.amenities.internetConnectivity,
+                laundry: currentItem.amenities.laundry,
+                cellPhone: currentItem.amenities.cellPhoneReception
+            },
+           accessibility: {
+               roads: currentItem.accessibility.accessRoads,
+               cell: currentItem.accessibility.cellPhoneInfo,
+               internet: currentItem.accessibility.internetinfo,
+               wheelChair: currentItem.accessibility.wheelChairAccess,
+               ada: currentItem.accessibility.adaInfo,
+               addInfo: currentItem.accessibility.additionalInfo
+
+           }
+          }; 
+
+           campSites.push(thisCampSite);
+          console.log(campSites)
+        
+  
 
 });
-  })
-}
-// var modelCampSite =
-//   { 
-//     name: '', 
-//     description: '',
-//     location:  '',
-//     addresses: ''
-//   [{
-//       line: '',
-//       city: '',
-//       state: '',
-//       zip: ''
-//     }],
-// amenities: [{
-//     showers: '',
-//     toilets:  '',
-//     internetNetwork: '',
-//     laundry: '',
-//     cellPhone: ''
-// }],
-// accessibility: [{
-//    roads: '',
-//    cell: '',
-//    internet: '',
-//    wheelChair: '',
-//    ada: '',
-//    addInfo: '' 
-//   }]
-// }];
+  // });
+// }
 
-var thisCampsite = [];
+
 
 
 const key = "200367477-2b5b5ee846692e48eb30894d0d0c74ce";
@@ -802,8 +823,24 @@ $('.reset-d').on('click', function(){
 });
 
 
-$(document).on("click", "[log='miw']", function(event){
+$(`.hiker`).on(`click`,function(event){
   event.preventDefault();
-  console.log("Click");
-})
+  id = $(this).getAttribute(`id`);
+  $(`Modal1`).modal(`show`);
+  showTrData(id);
+});
+
+// $(document).on("click", "[log='miw']", function(event){
+//   event.preventDefault();
+//   console.log("Click");
+
+//     id = $(this).getAttribute(`id`);
+
+//     $(`modal1`).modal(`show`);
+//     showTrData(id);
+
+//   }
+
+
+// )
 

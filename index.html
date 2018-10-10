@@ -215,15 +215,36 @@
             <!--Div to display the quick popup detailing -->
             <div id="quicklook">
 
+                 <!-- Quick View Modal -->
+                 <div class="modal fade" id="modal1"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="modal1-header"></h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body" id="modal1-body">
+                           
+                        </div>
+                        <!-- card-->
+                        <div class="collapse" id="collapseExample">
+                            <div class="card card-body" id="card-body">
+                              
+                            </div>
+                          </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                more details
+                              </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
             </div>
-                <!--Div to display the quick popup detailing -->
-                <div id="quicklook">
 
-                </div>
-                <!--Div to display the more indepth details-->
-                <div id="moredetails">
-
-                </div>
             </div>
 
         </div>

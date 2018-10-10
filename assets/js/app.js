@@ -137,7 +137,7 @@ function initMap() {
   var trailLow = 0;
   var trailHigh = 20;
   var trails = [];
-  var trailsPopulated = false;
+  var trailsPopulated;
   var trailsObject;
   var trailsIcon = {
     url: "./assets/media/hiker.png",
@@ -430,6 +430,7 @@ function initMap() {
       youAreHere = new google.maps.Marker({position: pos, map: map});
       youAreHere.setMap(map);
       map.setCenter(pos);
+      map.setZoom(10);
       }, function() {
           handleLocationError(true, infoWindow, map.getCenter());
       });
@@ -598,14 +599,14 @@ function initMap() {
       trl.push(trlDetails);
       trails[count].addListener('click',function(){
         $('#markerBody').empty();
-        $('#markerBody').append(`<b>${trl[count].name}</b>`);
-        $('#markerBody').append(`<b><h5>Description</h5></b>${trl[count].summary}<br/><br/>`);
-        $('#markerBody').append(`<b><h5>Location</h5></b>${trl[count].location}<br/><br/>`);
+        $('#markerBody').append(`<b>${trl[i].name}</b>`);
+        $('#markerBody').append(`<b><h5>Description</h5></b>${trl[i].summary}<br/>`);
+        $('#markerBody').append(`<b><h5>Location</h5></b>${trl[i].location}<br/>`);
         //$('#marker').append(trl.longLat.latitude, trl.longLat.longitude);
-        $('#markerBody').append(`<b><h5>Difficulty</h5></b>${trl[count].difficulty}<br/><br/>`);
-        $('#markerBody').append(`<b><h5>Trail ID</h5></b>${trl[count].id}<br/><br/>`);
-        $('#markerBody').append(`<b><h5>Website</h5></b>${trl[count].website}<br/><br/>`);
-        $('#markerBody').append(`<img src ="${trl[count].image}" alt = "trail photo">`);
+        $('#markerBody').append(`<b><h5>Difficulty</h5></b>${trl[i].difficulty}<br/>`);
+        $('#markerBody').append(`<b><h5>Trail ID</h5></b>${trl[i].id}<br/>`);
+        $('#markerBody').append(`<b><h5>Website</h5></b>${trl[i].website}<br/>`);
+        $('#markerBody').append(`<img src ="${trl[i].image}" alt = "trail photo">`);
         $('#marker').modal('show');
       });
       //Setting marker to map.
@@ -729,13 +730,13 @@ function initMap() {
         }
       //set flag to track whether markers have been created once before.
       trailsPopulated = true;
-      trailsObject = [];
       });
     } else {
       for (let i=0; i<trails.length; i++) {
         trails[i].setMap(null);
       }
       // Reset length of marker array
+      trails=[];
       trailsPopulated = false;
     } 
   });

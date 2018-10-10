@@ -11,12 +11,31 @@
     <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 <body>
+    <!-- Marker Info Modal -->
+    <div class="modal fade" id="marker" tabindex="-1" role="dialog" aria-labelledby="Camp_Trail_Details" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="Camp_Trail_Details">Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="markerBody">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Filter Modal -->
-    <div class="modal fade" id="filter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="filter" tabindex="-1" role="dialog" aria-labelledby="FilterSearchOptions" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalCenterTitle">Filter Search Options</h5>
+                <h5 class="modal-title" id="FilterSearchOptions">Filter Search Options</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>

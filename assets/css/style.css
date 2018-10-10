@@ -16,6 +16,9 @@
     padding-bottom: 4%;
     margin-top: -2%;
 }
+#headingOne{
+    margin:0 auto;
+}
 
 .accordian{
     background-color:#0C8E56;
@@ -43,7 +46,9 @@
     color:#FFFAED;
 }
 
-
+label{
+    color:#FFFAED;
+}
 h3{
     font-size:1.65em;
     margin-top:3%;
@@ -154,7 +159,7 @@ h5{
 
 
 #map{
-    height:80vh;
+    height:81vh;
     width:100vw;
     margin-top:15vh;
 }
@@ -251,6 +256,10 @@ h5{
     form{
         padding-top: 2vh;
     }
+
+    label{
+        color:#270632;
+    }
     .header{
         height:15vh;
     }
@@ -273,7 +282,7 @@ h5{
 
     #map{
         height: 100vh;
-        margin-left: 25vw;
+        margin-left: 24vw;
         width: 75vw;
         margin-top: 0;
     }
@@ -287,11 +296,14 @@ h5{
     h5{
         padding-top:3%;
     }
-
+    h4{
+        font-size:1.25em;
+    }
     h3{
-        margin-top: 14%;
+        margin-top: 10%;
         margin-bottom: 8%;
         margin-left: -5%;
+        font-size:1.5em;
     }
     .filterform{
         padding-left:11%;

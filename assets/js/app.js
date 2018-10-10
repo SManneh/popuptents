@@ -619,24 +619,31 @@ function initMap() {
       return count++;
     }
 
-
-
-
     // Function to place Camping Markers
     function placeCaMarkers(i, count){
         let pos = ({lat: campsObject[i].FacilityLatitude, lng: campsObject[i].FacilityLongitude});
-        camps.push(new google.maps.Marker({
+        camps[count] = new google.maps.Marker({
           icon: campsIcon,
           shape: cmpShape,
           title: campsObject[i].FacilityName,
           position: pos,
           map: map
-        }));
+        });
+        camps[count].addListener('click',function(){
+          $('#markerBody').empty();
+          $('#markerBody').append(`<b>${campsObject[i].FacilityName}</b><br/><br/>`);
+          for (j=0;j<campsObject[i].ACTIVITY.length;j++){
+            $('#markerBody').append(`${campsObject[i].ACTIVITY[j].ActivityName}<br/>`);
+          }
+          $('#markerBody').append(`<br>${campsObject[i].LINK[0].URL}<br/>`);
+          $('#marker').modal('show');
+        });
         // Setting marker to map.
         camps[count].setMap(map);
         //Modifying marker attributes for details modal.
-        $(camps[count]).addClass('camper');
-        $(camps[count]).attr('id',i);
+        $(camps[count]).addClass('btn camper');
+        $(camps[count]).attr('data-toggle','modal');
+        $(camps[count]).attr('data-target','#marker');
         return count++;
       }
     
@@ -661,6 +668,7 @@ function initMap() {
       }).then(function(res){
           // Save GET data to object for Team use to display data
           campsObject = res.RECDATA;
+          console.log(campsObject);
           // Filter Activites
           counter2 = 0;
           for(let i=0; i<campsObject.length; i++) {

@@ -1,3 +1,127 @@
+var lat;
+var lng;
+var trl = [];
+var trlDetails;
+if (navigator.geolocation) {
+  navigator.geolocation.getCurrentPosition(function (position) {
+    lat = position.coords.latitude;
+    lng = position.coords.longitude;
+
+    console.log(lat, lng);
+
+
+
+    const queryURL = `https://www.hikingproject.com/data/get-trails?lat=${lat}&lon=${lng}&maxDistance=200&maxResults=500&key=200370663-d3970ccb58e379da62e51f7ec9dc994f`
+
+    $.ajax({
+      url: queryURL,
+      method: "GET"
+
+    }).then(function (response) {
+
+      // console.log(response);
+      // console.log(response.trails[1]);
+
+
+
+
+      for (i = 0; i < response.trails.length; i++) {
+        trlDetails = {
+
+          name: response.trails[i].name,
+          id: response.trails[i].id,
+          summary: response.trails[i].summary,
+          location: response.trails[i].location,
+          difficulty: response.trails[i].difficulty,
+          longLat: { latitude: response.trails[i].latitude, longitude: response.trails[1].longitude },
+          image: response.trails[i].imgSmall,
+          website: response.trails[i].url,
+          ConditionDate: response.trails[i].conditionDate,
+          condition: response.trails[i].conditionStatus,
+          ConditionDetails: response.trails[i].conditionDetails
+
+        };
+
+
+        trl.push(trlDetails);
+        // console.log(trl);
+      }
+
+      // console.log(trl);
+
+      $('#modal1-header').append(`<b>${trl[1].name}</b>`);
+      $('#modal1-body').append(`<b><h5>Description</h5></b>${response.trails[1].summary}<br/><br/>`);
+      $('#modal1-body').append(`<b><h5>Location</h5></b>${response.trails[1].location}<br/><br/>`);
+      //$('#modal1-body').append(trl.longLat.latitude, trl.longLat.longitude);
+      $('#card-body').append(`<b><h5>Difficulty</h5></b>${response.trails[1].difficulty}<br/><br/>`);
+      $('#card-body').append(`<b><h5>Trail ID</h5></b>${response.trails[1].id}<br/><br/>`);
+      $('#card-body').append(`<b><h5>Website</h5></b>${response.trails[1].website}<br/><br/>`);
+      $('#card-body').append(`<img src ="${response.trails[1].image}" alt = "trail photo">`);
+
+
+    });
+  });
+
+}
+
+
+if (navigator.geolocation) {
+  navigator.geolocation.getCurrentPosition(function (position) {
+    lat = position.coords.latitude;
+    lng = position.coords.longitude;
+
+    console.log(lat, lng);
+
+var campSite = [];
+const queryURL = `https://ridb.recreation.gov/api/v1/facilities?activity=9&longitude=${lng}&latitude=${lat}&radius=30&apikey=38BDFB83F3714D9D9CBB807B847E4340`;
+
+$.ajax({
+  url: queryURL,
+  method: "GET"
+}).then(function(response){
+  console.log(response);
+
+});
+  })
+}
+// var modelCampSite =
+//   { 
+//     name: '', 
+//     description: '',
+//     location:  '',
+//     addresses: ''
+//   [{
+//       line: '',
+//       city: '',
+//       state: '',
+//       zip: ''
+//     }],
+// amenities: [{
+//     showers: '',
+//     toilets:  '',
+//     internetNetwork: '',
+//     laundry: '',
+//     cellPhone: ''
+// }],
+// accessibility: [{
+//    roads: '',
+//    cell: '',
+//    internet: '',
+//    wheelChair: '',
+//    ada: '',
+//    addInfo: '' 
+//   }]
+// }];
+
+var thisCampsite = [];
+
+
+const key = "200367477-2b5b5ee846692e48eb30894d0d0c74ce";
+let max = "30";
+let pos = {lat: 44.427963, lng: -110.588455}
+var trailsIcon;
+var runOnce = false;  
+
 // Initialize Map
 function initMap() {
   // Global Variables  
@@ -678,4 +802,8 @@ $('.reset-d').on('click', function(){
 });
 
 
+$(document).on("click", "[log='miw']", function(event){
+  event.preventDefault();
+  console.log("Click");
+})
 

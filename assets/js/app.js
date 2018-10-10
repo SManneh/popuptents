@@ -7,6 +7,8 @@ function initMap() {
   var infoWindow = new google.maps.InfoWindow;
   var youAreHere;
 
+  var trl = [];
+
   var trailDifficulty = [true, true, true];
   var trailLow = 0;
   var trailHigh = 20;
@@ -449,20 +451,51 @@ function initMap() {
     //Function to place Trail Markers
     function placeTrMarkers(i, count){
       let pos = ({lat: trailsObject[i].latitude, lng: trailsObject[i].longitude});
-      trails.push(new google.maps.Marker({
+      trails[count] = new google.maps.Marker({
         icon: trailsIcon,
         shape: trShape,
         title: trailsObject[i].name,
         position: pos,
         map: map
-      }));
-      //This is the marker name.
-      $(this).addClass(`hiker`);
-      $(this).attr('id',i);
+      });
+      trlDetails = {
+        name: trailsObject[i].name,
+        id: trailsObject[i].id,
+        summary: trailsObject[i].summary,
+        location: trailsObject[i].location,
+        difficulty: trailsObject[i].difficulty, 
+        longLat: { latitude: trailsObject[i].latitude, longitude: trailsObject[i].longitude},
+        image: trailsObject[i].imgSmall,
+        website: trailsObject[i].url,
+        ConditionDate: trailsObject[i].conditionDate,
+        condition: trailsObject[i].conditionStatus,
+        ConditionDetails: trailsObject[i].conditionDetails
+      };
+      trl.push(trlDetails);
+      trails[count].addListener('click',function(){
+        $('#markerBody').empty();
+        $('#markerBody').append(`<b>${trl[count].name}</b>`);
+        $('#markerBody').append(`<b><h5>Description</h5></b>${trl[count].summary}<br/><br/>`);
+        $('#markerBody').append(`<b><h5>Location</h5></b>${trl[count].location}<br/><br/>`);
+        //$('#marker').append(trl.longLat.latitude, trl.longLat.longitude);
+        $('#markerBody').append(`<b><h5>Difficulty</h5></b>${trl[count].difficulty}<br/><br/>`);
+        $('#markerBody').append(`<b><h5>Trail ID</h5></b>${trl[count].id}<br/><br/>`);
+        $('#markerBody').append(`<b><h5>Website</h5></b>${trl[count].website}<br/><br/>`);
+        $('#markerBody').append(`<img src ="${trl[count].image}" alt = "trail photo">`);
+        $('#marker').modal('show');
+      });
+      //Setting marker to map.
       trails[count].setMap(map);
-      console.log(trails[count]);
+      //Modifying marker attributes for details modal.
+      $(trails[count]).addClass('btn hiker');
+      $(trails[count]).attr('data-toggle','modal');
+      $(trails[count]).attr('data-target','#marker'); 
+      // Adding listener to show modal
       return count++;
     }
+
+
+
 
     // Function to place Camping Markers
     function placeCaMarkers(i, count){
@@ -474,9 +507,11 @@ function initMap() {
           position: pos,
           map: map
         }));
-        // This is the marker name.
-        $(this).addClass(`campfire${i}`);
+        // Setting marker to map.
         camps[count].setMap(map);
+        //Modifying marker attributes for details modal.
+        $(camps[count]).addClass('camper');
+        $(camps[count]).attr('id',i);
         return count++;
       }
     
@@ -505,22 +540,19 @@ function initMap() {
           counter2 = 0;
           for(let i=0; i<campsObject.length; i++) {
             check=0;
-            if(activityList){
+            if(activityList.length>0){
               for(let j=0; j<campsObject[i].ACTIVITY.length; j++){
                 for(let k=0; k<activityList.length; k++) {
-                  // Check if there are any activities selected.
-                  if(activityList[k]) {
-                    // Compares activities selected with activities offered.
-                    if(parseInt(campsObject[i].ACTIVITY[j].ActivityID) === activityList[k]) {
-                      check++;
-                      // Displays marker if all activities required match what is offered.
-                      if(check === activityList.length){
-                        // Place markers for nearby trails
-                        console.log(campsObject[i]);
-                        placeCaMarkers(i, counter2);
-                      }
-                    } 
-                  }
+                  // Compares activities selected with activities offered.
+                  if(parseInt(campsObject[i].ACTIVITY[j].ActivityID) === parseInt(activityList[k])) {
+                    check++;
+                    // Displays marker if ALL activities required match what is offered.
+                    if(check === activityList.length){
+                      // Place markers for nearby trails
+                      console.log(campsObject[i]);
+                      placeCaMarkers(i, counter2);
+                    }
+                  } 
                 }   
               }
             // Place markers if no activites selected.
@@ -678,4 +710,8 @@ $('.reset-d').on('click', function(){
 });
 
 
+$(document).on("click", "[log='miw']", function(event){
+  event.preventDefault();
+  console.log("Click");
+})
 
